@@ -3,6 +3,10 @@
 ## Fundamental Goal
 To learn algorithmic trading by creating and testing various algorithms with live market prices.
 
+## Algorithms
+### <a href="/Moving Averages/">Moving Averages</a>
+Algorithms using the moving averages of the stock price over multiple days.
+
 ## Tasks
 - [x] Create a Robinhood account and start trading by hand.
 - [ ] Learn how the stock market works: optimal times to buy and sell and how to best predict future changes.
