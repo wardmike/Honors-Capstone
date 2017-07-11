@@ -57,11 +57,11 @@ Algorithms using the moving averages of the stock price over multiple days.
 
 ## Research Sources
 <ul>
-<li><a href="quantopian.com">Quantopian</a></li>
-<li><a href="investopedia.com">Investopedia</a></li>
-<li><a href="robinhood.com">Robinhood Markets</a></li>
-<li><a href="marketwatch.com">Market Watch</a></li>
-<li><a href="stocktrading.com">Stock Trading</a></li>
+<li><a href="https://quantopian.com">Quantopian</a></li>
+<li><a href="http://investopedia.com">Investopedia</a></li>
+<li><a href="https://robinhood.com">Robinhood Markets</a></li>
+<li><a href="http://marketwatch.com">Market Watch</a></li>
+<li><a href="http://stocktrading.com">Stock Trading</a></li>
 </ul>
 
 ## Final Product
