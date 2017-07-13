@@ -1,4 +1,4 @@
-# Honors Thesis: Algorithmic Stock Trading
+# Undergraduate Thesis: Algorithmic Stock Trading
 
 ## Fundamental Goal
 To learn algorithmic trading by creating and testing various algorithms with live market prices.
