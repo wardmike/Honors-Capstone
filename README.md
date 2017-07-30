@@ -7,6 +7,13 @@ To learn algorithmic trading by creating and testing various algorithms with liv
 ### <a href="/Moving Averages/">Moving Averages</a>
 Algorithms using the moving averages of the stock price over multiple days.
 
+### <a href="/Mean Reversion/">Mean Reversion</a>
+Improvement on Moving Averages where algorithms will place limits above and below the moving average.  
+This will allow buy and sell times to more closely approach the highs and lows.
+
+### Dynamic Mean Reversion
+Improvement on Mean Reversion algorithm. Algorithm will dynamically change limits in accordance with stock's volatility.
+
 ## Tasks
 - [x] Create a Robinhood account and start trading by hand.
 - [ ] Learn how the stock market works: optimal times to buy and sell and how to best predict future changes.
