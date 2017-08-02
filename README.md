@@ -37,11 +37,11 @@ Improvement on Mean Reversion algorithm. Algorithm will dynamically change limit
 
 <table>
   <tr>
-    <td>05/30/2017</td>
-    <td>Create an account on Robinhood and start trading by hand.</td>
+    <td>05/31/2017</td>
+    <td>Created an account on Robinhood and started trading by hand.</td>
   </tr>
   <tr>
-    <td>08/20/2017</td>
+    <td>09/01/2017</td>
     <td>Demo my first algorithm on Robinhood. Results will be taken for the next 8 months.</td>
   </tr>
   <tr>
@@ -59,6 +59,15 @@ Improvement on Mean Reversion algorithm. Algorithm will dynamically change limit
   <tr>
     <td>05/01/2018</td>
     <td>Final Thesis Submission</td>
+  </tr>
+</table>
+
+## Meetings
+
+<table>
+  <tr>
+    <td>07/20/2017</td>
+    <td>Met with Prof. Brim to discuss Mean Reversion and Dynamic Mean Reversion strategies.</td>
   </tr>
 </table>
 
