@@ -1,5 +1,5 @@
 # Undergraduate Thesis: Algorithmic Stock Trading
-
+This repository is for my personal research. My work with the USU Invests club is <a href="https://github.com/mikethebro/BullishAggies">here.</a>
 ## Fundamental Goal
 To learn algorithmic trading by creating and testing various algorithms with live market prices.
 
