@@ -18,6 +18,9 @@ Improvement on Mean Reversion algorithm. Algorithm will dynamically change limit
 - [x] Create a Robinhood account and start trading by hand.
 - [ ] Learn how the stock market works: optimal times to buy and sell and how to best predict future changes.
 - [ ] Learn the basics of algorithmic trading.
+- [ ] Learn Moving Averages Crossover strategy.
+- [ ] Test Moving Averages Crossover strategy with Bitcoin.
+- [ ] Modify MVA test with Bitcoin to find better results.
 - [ ] Write my first algorithm.
 - [ ] Refine my algorithm with past market data.
 - [ ] Demo refined algorithm on Robinhood.
