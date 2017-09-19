@@ -1,4 +1,4 @@
-# Undergraduate Thesis: Algorithmic Stock Trading
+# Undergraduate Thesis: Algorithmic Trading
 This repository is for my personal research. My work with the USU Invests club is <a href="https://github.com/mikethebro/BullishAggies">here.</a>
 ## Fundamental Goal
 To learn algorithmic trading by creating and testing various algorithms with live market prices.
@@ -68,6 +68,14 @@ Improvement on Mean Reversion algorithm. Algorithm will dynamically change limit
   <tr>
     <td>07/20/2017</td>
     <td>Met with Prof. Brim to discuss Mean Reversion and Dynamic Mean Reversion strategies.</td>
+  </tr>
+  <tr>
+    <td>09/11/2017</td>
+    <td>Met with Prof. Brim to discuss Bitcoin strategies.</td>
+  </tr>
+  <tr>
+    <td>09/18/2017</td>
+    <td>Met with Prof. Brim to discuss and test Bitcoin strategies.</td>
   </tr>
 </table>
 
