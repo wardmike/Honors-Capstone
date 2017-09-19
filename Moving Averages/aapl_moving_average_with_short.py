@@ -1,10 +1,9 @@
-#########################################
+##################################################
 #
-# 10 - Day Moving Average of AAPL Stock
+# 10 - Day Moving Average of AAPL Stock with Short
 # by Michael Ward
 #
-##########################################
-
+##################################################
 
 days_passed = -1
 
@@ -16,12 +15,11 @@ def initialize(context):
     # Position 100% of our portfolio to be long in AAPL
     if data.can_trade(context.aapl):
     	order_target_percent(context.aapl, 1)
+    
 
-#called once every day before market opens        
+#called every day before market open
 def before_trading_start(context, data):
     days_passed = days_passed + 1
-
-
 
 #called once at the end of each minute
 def handle_data(context, data):
@@ -29,7 +27,7 @@ def handle_data(context, data):
 	aapl_10_day = data.history(context.aapl, 'price', 10, '1d')
 	aapl_10_day_average = aapl_10_day.mean()
 
-    if (days_passed > 9):
+    if(days_passed > 9):
         if (aapl_current > aapl_10_day):
             print "------------------"
             print "Buying aapl stocks"
@@ -41,7 +39,7 @@ def handle_data(context, data):
             print "Selling aapl stocks"
             print "10-day avg: ", aapl_10_day
             print "current price: ", aapl_current
-            order_target_percent(context.aapl, 0) #selling stocks, experiment with short?
+            order_target_percent(context.aapl, -1.00)
         else:
             pass
 
