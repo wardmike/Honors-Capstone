@@ -1,5 +1,5 @@
 # Undergraduate Thesis: Algorithmic Trading
-This repository is for my personal research. My work with the USU Invests club is <a href="https://github.com/mikethebro/BullishAggies">here.</a>
+Writing algorithms to find optimal times to buy and sell stocks and cryptocurrencies.
 ## Fundamental Goal
 To learn algorithmic trading by creating and testing various algorithms with live market prices.
 
@@ -13,6 +13,10 @@ This will allow buy and sell times to more closely approach the highs and lows.
 
 ### Dynamic Mean Reversion
 Improvement on Mean Reversion algorithm. Algorithm will dynamically change limits in accordance with stock's volatility.
+
+## Results: Cryptocurrencies
+
+## Results: Stock Market
 
 ## Tasks
 - [x] Create a Robinhood account and start trading by hand.
