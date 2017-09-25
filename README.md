@@ -14,6 +14,9 @@ This will allow buy and sell times to more closely approach the highs and lows.
 ### Dynamic Mean Reversion
 Improvement on Mean Reversion algorithm. Algorithm will dynamically change limits in accordance with stock's volatility.
 
+### Pairs Trading
+Finding the relationship between two or more prices.
+
 ## Results: Cryptocurrencies
 
 ### Moving Average Crossover on Bitcoin
