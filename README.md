@@ -30,6 +30,10 @@ Percent Return (buying and holding):  659.1%
 ## Results: Stock Market
 
 ## Tasks
+Pairs Trading:
+- [ ] Dickey-Fuller algo in Python  
+- [ ] Johansen cointegration test in Python (on Quantopian)  
+- [ ] get past data
 - [x] Create a Robinhood account and start trading by hand.
 - [ ] Learn how the stock market works: optimal times to buy and sell and how to best predict future changes.
 - [ ] Learn the basics of algorithmic trading.
