@@ -99,6 +99,10 @@ Pairs Trading:
     <td>09/18/2017</td>
     <td>Met with Prof. Brim to discuss and test Bitcoin strategies.</td>
   </tr>
+  <tr>
+    <td>09/25/2017</td>
+    <td>Met with Prof. Brim to discuss pairs trading for Cryptocurrencies.</td>
+  </tr>
 </table>
 
 ## Research Sources
