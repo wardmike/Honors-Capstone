@@ -103,6 +103,10 @@ Pairs Trading:
     <td>09/25/2017</td>
     <td>Met with Prof. Brim to discuss pairs trading for Cryptocurrencies.</td>
   </tr>
+  <tr>
+    <td>10/02/2017</td>
+    <td>Met with Prof. Brim to discuss correlation and cointegration for pairs trading.</td>
+  </tr>
 </table>
 
 ## Research Sources
