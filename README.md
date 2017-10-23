@@ -1,5 +1,5 @@
 # Undergraduate Thesis: Algorithmic Trading
-This repository is for my personal research. My work with the USU Invests club is <a href="https://github.com/mikethebro/BullishAggies">here.</a>
+Writing algorithms to find optimal times to buy and sell stocks and cryptocurrencies.
 ## Fundamental Goal
 To learn algorithmic trading by creating and testing various algorithms with live market prices.
 
@@ -14,10 +14,32 @@ This will allow buy and sell times to more closely approach the highs and lows.
 ### Dynamic Mean Reversion
 Improvement on Mean Reversion algorithm. Algorithm will dynamically change limits in accordance with stock's volatility.
 
+### Pairs Trading
+Finding the relationship between two or more prices.
+
+## Results: Cryptocurrencies
+
+### Moving Average Crossover on Bitcoin
+With an initial investment of one Bitcoin and tested over a year, the algorithm returned:  
+Total Profit:  $1,894.86  
+Percent Return:  311.3%  
+Percent Return (buying and holding):  659.1%  
+
+\*\*While the algorithm returned less than buying and holding, moving average crossover may be more protected in case of a market crash. Further research will follow.
+
+## Results: Stock Market
+
 ## Tasks
+Pairs Trading:
+- [ ] Dickey-Fuller algo in Python  
+- [ ] Johansen cointegration test in Python (on Quantopian)  
+- [ ] get past data
 - [x] Create a Robinhood account and start trading by hand.
 - [ ] Learn how the stock market works: optimal times to buy and sell and how to best predict future changes.
 - [ ] Learn the basics of algorithmic trading.
+- [ ] Learn Moving Averages Crossover strategy.
+- [ ] Test Moving Averages Crossover strategy with Bitcoin.
+- [ ] Modify MVA test with Bitcoin to find better results.
 - [ ] Write my first algorithm.
 - [ ] Refine my algorithm with past market data.
 - [ ] Demo refined algorithm on Robinhood.
@@ -76,6 +98,14 @@ Improvement on Mean Reversion algorithm. Algorithm will dynamically change limit
   <tr>
     <td>09/18/2017</td>
     <td>Met with Prof. Brim to discuss and test Bitcoin strategies.</td>
+  </tr>
+  <tr>
+    <td>09/25/2017</td>
+    <td>Met with Prof. Brim to discuss pairs trading for Cryptocurrencies.</td>
+  </tr>
+  <tr>
+    <td>10/02/2017</td>
+    <td>Met with Prof. Brim to discuss correlation and cointegration for pairs trading.</td>
   </tr>
 </table>
 
