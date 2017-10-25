@@ -1,5 +1,6 @@
-# Undergraduate Thesis: Algorithmic Trading
-Writing algorithms to find optimal times to buy and sell stocks and cryptocurrencies.
+# Pairs Trading for Cryptocurrencies
+Undergraduate Thesis for Michael Ward.  
+Utah State University -- May 2018.
 ## Fundamental Goal
 To learn algorithmic trading by creating and testing various algorithms with live market prices.
 
