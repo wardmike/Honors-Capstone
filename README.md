@@ -108,6 +108,10 @@ Pairs Trading:
     <td>10/02/2017</td>
     <td>Met with Prof. Brim to discuss correlation and cointegration for pairs trading.</td>
   </tr>
+  <tr>
+    <td>10/23/2017</td>
+    <td>Met with Prof. Brim to discuss Vecm test for finding cointegration.</td>
+  </tr>
 </table>
 
 ## Research Sources
