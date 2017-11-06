@@ -32,26 +32,18 @@ Percent Return (buying and holding):  659.1%
 
 ## Tasks
 Pairs Trading:
+- [x] Write my first algorithm
+- [x] Get past data
+- [ ] Create an account on QuantConnect and try trading
 - [ ] Dickey-Fuller algo in Python  
 - [ ] Johansen cointegration test in Python (on Quantopian)  
-- [ ] get past data
-- [x] Create a Robinhood account and start trading by hand.
 - [ ] Learn how the stock market works: optimal times to buy and sell and how to best predict future changes.
 - [ ] Learn the basics of algorithmic trading.
 - [ ] Learn Moving Averages Crossover strategy.
 - [ ] Test Moving Averages Crossover strategy with Bitcoin.
 - [ ] Modify MVA test with Bitcoin to find better results.
-- [ ] Write my first algorithm.
-- [ ] Refine my algorithm with past market data.
-- [ ] Demo refined algorithm on Robinhood.
-- [ ] Further refine algorithm using current market data.
 - [ ] First Thesis Draft.
-- [ ] Demo second iteration algorithm on Robinhood.
-- [ ] Further refine second iteration of algorithm.
-- [ ] Demo third iteration algorithm on Robinhood.
 - [ ] Second Thesis Draft.
-- [ ] Further refine third iteration for report.
-- [ ] Choose key algorithms and discover important ideas.
 - [ ] Penultimate Thesis Draft
 - [ ] Final Thesis Submission
 - [ ] Present Thesis at Research Symposium
@@ -59,22 +51,6 @@ Pairs Trading:
 ## Timeline
 
 <table>
-  <tr>
-    <td>05/31/2017</td>
-    <td>Created an account on Robinhood and started trading by hand.</td>
-  </tr>
-  <tr>
-    <td>09/01/2017</td>
-    <td>Demo my first algorithm on Robinhood. Results will be taken for the next 8 months.</td>
-  </tr>
-  <tr>
-    <td>12/20/2017</td>
-    <td>Demo next iteration of algorithms on Robinhood. Results will be taken for the next 4 months.</td>
-  </tr>
-  <tr>
-    <td>03/01/2018</td>
-    <td>Demo final iteration of algorithms on Robinhood. Results will be taken for the next 2 months.</td>
-  </tr>
   <tr>
     <td>04/01/2018</td>
     <td>Penultimate Draft Submission</td>
