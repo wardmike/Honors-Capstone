@@ -32,7 +32,7 @@ def findPair(curr1, curr2):
 class Currency(object):
 	def __init__(self, name):
 		self.name = name
-		self.prices = importPrices("../prices/" + name + ".txt")
+		self.prices = importPrices("../prices/txt/" + name + ".txt")
 		self.len = len(self.prices)
 
 
@@ -41,6 +41,12 @@ def main():
 	trader.addCurrency("BTC")
 	trader.addCurrency("ETH")
 	trader.addCurrency("BCH")
+	trader.addCurrency("LTC")
+	trader.addCurrency("NEO")
+	trader.addCurrency("XEM")
+	trader.addCurrency("XMR")
+	trader.addCurrency("XRP")
+	trader.addCurrency("DASH")
 	trader.printPairs()
 
 if __name__ == '__main__':
