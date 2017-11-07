@@ -1,4 +1,4 @@
-Correlations:
+Correlations (beginning of cryptocurrency to 24 October; one data point per day):
 
 BTC and ETH:
 0.942101925866
@@ -72,3 +72,11 @@ XMR and DASH:
 -0.568757597633
 XRP and DASH:
 0.853103581454
+
+Correlations (05 October to 03 November; one data point every 5 minutes):
+bitcoin and ethereum:
+-0.223035387267
+bitcoin and bitcoin-cash:
+0.688233757408
+ethereum and bitcoin-cash:
+-0.349123442975
