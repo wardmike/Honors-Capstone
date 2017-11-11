@@ -5,6 +5,9 @@ Utah State University -- May 2018.
 To learn algorithmic trading by creating and testing various algorithms with live market prices.
 
 ## Algorithms
+### <a href="/Pairs/">Pairs Trading</a>
+Finding the relationship between two or more prices.
+
 ### <a href="/Moving Averages/">Moving Averages</a>
 Algorithms using the moving averages of the stock price over multiple days.
 
@@ -15,10 +18,7 @@ This will allow buy and sell times to more closely approach the highs and lows.
 ### Dynamic Mean Reversion
 Improvement on Mean Reversion algorithm. Algorithm will dynamically change limits in accordance with stock's volatility.
 
-### Pairs Trading
-Finding the relationship between two or more prices.
-
-## Results: Cryptocurrencies
+## Results
 
 ### Moving Average Crossover on Bitcoin
 With an initial investment of one Bitcoin and tested over a year, the algorithm returned:  
@@ -27,8 +27,6 @@ Percent Return:  311.3%
 Percent Return (buying and holding):  659.1%  
 
 \*\*While the algorithm returned less than buying and holding, moving average crossover may be more protected in case of a market crash. Further research will follow.
-
-## Results: Stock Market
 
 ## Tasks
 Pairs Trading:
@@ -93,6 +91,7 @@ Pairs Trading:
 ## Research Sources
 <ul>
 <li><a href="https://quantopian.com">Quantopian</a></li>
+<li><a href="https://www.quantconnect.com">QuantConnect</a></li>
 <li><a href="http://investopedia.com">Investopedia</a></li>
 <li><a href="https://robinhood.com">Robinhood Markets</a></li>
 <li><a href="http://marketwatch.com">Market Watch</a></li>
