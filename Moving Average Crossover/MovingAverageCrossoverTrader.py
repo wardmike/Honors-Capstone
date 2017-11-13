@@ -1,12 +1,11 @@
 class MovingAverageCrossoverTrader(object):
-    def __init__(self, name, mva, debug):
+    def __init__(self, name, mva, debug, filename):
         self.mva_days = mva
         self.buy = 0.0
         self.profit = 0.0
         self.cash = 1000.00
         self.debug = debug
         self.prices = []
-        filename = "prices/txt/" + name + ".txt"
         file_prices = open(filename, 'r')
         lines = file_prices.read().splitlines()
         for line in lines:
@@ -44,12 +43,16 @@ class MovingAverageCrossoverTrader(object):
         print "returns (algorithm): ", self.profit/self.prices[0] * 100, "%"
         print "returns (buy and hold): ", self.prices[-1]/self.prices[0] * 100, "%"
 
-def test_currency(currency):
+def test_currency(currency, filename):
     print currency
     best_profit = 0
     best_mva = 0
-    for x in range(2, 15):
-        trader = MovingAverageCrossoverTrader(currency, x, False)
+    fl = open(filename)
+    prcs = []
+    for line in fl:
+        prcs.append(float(line))
+    for x in range(2, 120): #range changes depending on daily or 5-minutes
+        trader = MovingAverageCrossoverTrader(currency, x, False, filename)
         trader.trade()
         #trader.print_results()
         if trader.get_profit() > best_profit:
@@ -57,18 +60,23 @@ def test_currency(currency):
             best_mva = x
     print "best profit: ", best_profit
     print "best mva: ", best_mva
+    print "returns (buy and hold): ", prcs[-1]/prcs[0] * 100, "%"
+    print "returns (algorithm): ", best_profit/prcs[0] * 100, "%"
 
 
 def main():
-    test_currency("BTC")
-    test_currency("ETH")
-    test_currency("BCH")
-    test_currency("DASH")
-    test_currency("LTC")
-    test_currency("NEO")
-    test_currency("XEM")
-    test_currency("XMR")
-    test_currency("XRP")
+    '''
+    test_currency("BTC", "prices/txt/BTC.txt")
+    test_currency("ETH", "prices/txt/ETH.txt")
+    test_currency("BCH", "prices/txt/BCH.txt")
+    test_currency("DASH", "prices/txt/DASH.txt")
+    test_currency("LTC", "prices/txt/LTC.txt")
+    test_currency("NEO", "prices/txt/NEO.txt")
+    test_currency("XEM", "prices/txt/XEM.txt")
+    test_currency("XMR", "prices/txt/XMR.txt")
+    test_currency("XRP", "prices/txt/XRP.txt")
+    '''
+    test_currency("BTC", "../prices/5-minute-just-prices/bitcoin.txt")
 
 
 if __name__ == "__main__":
