@@ -21,12 +21,17 @@ Improvement on Mean Reversion algorithm. Algorithm will dynamically change limit
 ## Results
 
 ### Moving Average Crossover on Bitcoin
-With an initial investment of one Bitcoin and tested over a year, the algorithm returned:  
+With an initial investment of one Bitcoin and tested over a year and trading a maximum of once a day, the algorithm returned:  
 Total Profit:  $1,894.86  
 Percent Return:  311.3%  
 Percent Return (buying and holding):  659.1%  
 
-\*\*While the algorithm returned less than buying and holding, moving average crossover may be more protected in case of a market crash. Further research will follow.
+With an initial investment of one Bitcoin and tested from October 5 to November 3 and trading a maximum of once every 5 minutes, the algorithm returned:  
+Total Profit:  $6,150.09  
+Percent Return:  163.9%  
+Percent Return (buying and holding):  142.3%  
+
+\*\*While both algorithms returned less than buying and holding, moving average crossover may be more protected in case of a market crash. Further research will follow.
 
 ## Tasks
 Pairs Trading:
