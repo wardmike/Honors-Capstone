@@ -34,17 +34,28 @@ Percent Return (buying and holding):  142.3%
 \*\*While both algorithms returned less than buying and holding, moving average crossover may be more protected in case of a market crash. Further research will follow.
 
 ## Tasks
-Pairs Trading:
+
+### Research
 - [x] Write my first algorithm
-- [x] Get past data
-- [ ] Create an account on QuantConnect and try trading
-- [ ] Dickey-Fuller algo in Python  
-- [ ] Johansen cointegration test in Python (on Quantopian)  
 - [ ] Learn how the stock market works: optimal times to buy and sell and how to best predict future changes.
 - [ ] Learn the basics of algorithmic trading.
+
+### Data Setup
+- [x] Get past data
+- [ ] plan to organize data
+- [ ] sub-repo or regular data files?
+- [ ] Create an account on QuantConnect and try trading
+
+### Pairs Trading
+- [ ] Dickey-Fuller algo in Python  
+- [ ] Johansen cointegration test in Python (on Quantopian)  
+
+### Moving Average Crossover
 - [ ] Learn Moving Averages Crossover strategy.
 - [ ] Test Moving Averages Crossover strategy with Bitcoin.
 - [ ] Modify MVA test with Bitcoin to find better results.
+
+### Writeup
 - [ ] First Thesis Draft.
 - [ ] Second Thesis Draft.
 - [ ] Penultimate Thesis Draft
