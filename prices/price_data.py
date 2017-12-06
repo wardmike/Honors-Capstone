@@ -86,12 +86,6 @@ class PriceDatabase(object):
 			print "Error: currency found more than once in list!"
 			return
 
-	def currency_index(self, curr_name):
-		if self.currList.count(curr_name) is 1:
-			return self.currList.index(curr_name)
-		else:
-			return -1
-
 		currency_data = file(filename)
 
 		#each line of data in the file
@@ -114,12 +108,18 @@ class PriceDatabase(object):
 			if len(i.prices) < curr_index + 1:
 				i.addPrice("None")
 
+	def currency_index(self, curr_name):
+		if self.currList.count(curr_name) is 1:
+			return self.currList.index(curr_name)
+		else:
+			return -1
+
 
 
 def main():
 	data = PriceDatabase()
-	data.add_currency("BTC", "../prices/full-data/bitcoin.txt")
-	data.add_currency("ETH", "../prices/full-data/ethereum.txt")
+	data.add_currency("BTC", "full-data/bitcoin.txt")
+	data.add_currency("ETH", "full-data/ethereum.txt")
 	data.print_to_file("output.csv")
 
 if __name__ == '__main__':
