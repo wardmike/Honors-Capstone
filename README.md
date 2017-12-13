@@ -102,6 +102,14 @@ Percent Return (buying and holding):  142.3%
     <td>10/23/2017</td>
     <td>Met with Prof. Brim to discuss Vecm test for finding cointegration.</td>
   </tr>
+  <tr>
+    <td>11/06/2017</td>
+    <td>Met with Prof. Brim to discuss different pairs trading strategies.</td>
+  </tr>
+  <tr>
+    <td>12/04/2017</td>
+    <td>Met with Prof. Brim to discuss mean reversion trading and optimal data handling.</td>
+  </tr>
 </table>
 
 ## Research Sources
