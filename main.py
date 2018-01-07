@@ -1,5 +1,10 @@
 import Tkinter as tk
 
+import os, sys
+sys.path.insert(0, os.path.normpath('Moving Average Crossover'))
+
+import MovingAverageCrossoverTrader
+
 """
 Main GUI for Honors Capstone project.
 **add more description here**
@@ -36,7 +41,7 @@ class Main_GUI:
 		self.parameter_selection.place(x = 260, y = 20, width=220, height=220)
 
 		#label for moving average days
-		self.label_mva_days = tk.Label(self.parameter_selection, text="Moving Average Days")
+		self.label_mva_days = tk.Label(self.parameter_selection, text="Moving Average Value")
 		self.label_mva_days.place(x = 0, y = 0, width=150)
 
 		#entry box for moving average days
