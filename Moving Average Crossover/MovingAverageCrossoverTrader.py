@@ -1,4 +1,4 @@
-class MovingAverageCrossoverTrader(object):
+class MovingAverageCrossoverTrader:
     def __init__(self, name, mva, debug, filename):
         self.mva_days = mva
         self.buy = 0.0
@@ -9,7 +9,8 @@ class MovingAverageCrossoverTrader(object):
         file_prices = open(filename, 'r')
         lines = file_prices.read().splitlines()
         for line in lines:
-            self.prices.append(float(line))
+            vals = line.split("|")
+            self.prices.append(float(vals[3]))
 
     def find_average(self, day):
         avg = 0.0
@@ -38,10 +39,10 @@ class MovingAverageCrossoverTrader(object):
     def get_profit(self):
         return self.profit
 
-    def print_results(self):
-        print "total profit: ", self.profit
-        print "returns (algorithm): ", self.profit/self.prices[0] * 100, "%"
-        print "returns (buy and hold): ", self.prices[-1]/self.prices[0] * 100, "%"
+    def results(self):
+        result = "total profit: " + str(self.profit) + "\nreturns (algorithm): " + str(self.profit/self.prices[0] * 100) + "%\n"
+        return result
+        #print "returns (buy and hold): ", self.prices[-1]/self.prices[0] * 100, "%"
 
 def test_currency(currency, filename):
     print currency
@@ -50,11 +51,12 @@ def test_currency(currency, filename):
     fl = open(filename)
     prcs = []
     for line in fl:
-        prcs.append(float(line))
-    for x in range(2, 120): #range changes depending on daily or 5-minutes
+        vals = line.split("|")
+        prcs.append(float(vals[3]))
+    for x in range(2, 240): #range changes depending on daily or 5-minutes
         trader = MovingAverageCrossoverTrader(currency, x, False, filename)
         trader.trade()
-        #trader.print_results()
+        trader.print_results()
         if trader.get_profit() > best_profit:
             best_profit = trader.get_profit()
             best_mva = x
