@@ -107,13 +107,19 @@ class Main_GUI:
 		self.outputText_scroller.config(command=self.outputText.yview)
 		self.outputText.config(yscrollcommand=self.outputText_scroller.set)
 
+		#graph for comparing the moving average to the price per day
 		movingAverageFigure = Figure(figsize=(5,5), dpi=100)
-		movingAveragePlot = movingAverageFigure.add_subplot(111)
-		movingAveragePlot.plot([1,2,3,4,5,6,7,8],[5,6,1,7,8,2,3,0])
+		priceLine = movingAverageFigure.add_subplot(111)
+		priceLine.plot([1,2,3,4,5,6,7,8],[5,6,1,7,8,2,3,0])
+		mvaLine = movingAverageFigure.add_subplot(111)
+		mvaLine.plot([3,4,5,6,7,8],[4,5,5,6,4,2])
 
+		#graph comparing the buy and hold value to the algo trading value
 		totalAmountFigure = Figure(figsize=(5,5), dpi=100)
-		totalAmountPlot = totalAmountFigure.add_subplot(111)
-		totalAmountPlot.plot([1,2,3,4,5,6,7,8],[5,6,1,7,8,2,3,0])
+		buyAndHold = totalAmountFigure.add_subplot(111)
+		buyAndHold.plot([1,2,3,4,5,6,7,8],[5,6,1,7,8,2,3,0])
+		algoTrade = totalAmountFigure.add_subplot(111)
+		algoTrade.plot([1,2,3,4,5,6,7,8],[5,6,4,11,12,9,10,9])
 
 		canvas = FigureCanvasTkAgg(movingAverageFigure, master)
 		canvas.show()
