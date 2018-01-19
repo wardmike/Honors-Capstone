@@ -1,6 +1,11 @@
 # Pairs Trading for Cryptocurrencies
 Honors Capstone for Michael Ward.  
 Utah State University -- May 2018.
+
+To run, clone the repo and make sure you have **Tkinter** and **Matplotlib** installed.  
+Then, run **python3 main.py** to run the GUI.  
+If you have any issues, feel free to email me at mikethebroski@gmail.com.
+
 ## Fundamental Goal
 To learn algorithmic trading by creating and testing various algorithms with live market prices.
 
