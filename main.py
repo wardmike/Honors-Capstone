@@ -1,14 +1,14 @@
-import Tkinter as tk
+import tkinter as tk
 
 import os, sys
 sys.path.insert(0, os.path.normpath('Moving Average Crossover'))
 
 import MovingAverageCrossoverTrader as mva
 
-"""
-Main GUI for Honors Capstone project.
-**add more description here**
-"""
+##############################################
+### Main GUI for Honors Capstone project.  ###
+### add more description here			   ###
+##############################################
 class Main_GUI:
 
 	def __init__(self, master):
@@ -130,21 +130,11 @@ class Main_GUI:
 				#self.outputText.config(text=results)
 
 	def run_moving_average_crossover(self):
-		#code to run moving average crossover here
-		#mva_days = int(self.entry_mva_days['text'])
-		if self.second_currency_selection.get() == 0:
-			print "Bitcoin"
-		elif self.second_currency_selection.get() == 1:
-			print "Ethereum"
-		elif self.second_currency_selection.get() == 2:
-			print "Litecoin"
-		trader = mva.MovingAverageCrossoverTrader(currency, mva_days, False, filename)
-		trader.trade()
-		#self.outputText['text'] = trader.results()
+		pass
 
-"""
-Create an instance of the Main_GUI object
-"""
+#################################################
+### Create an instance of the Main_GUI object ###
+#################################################
 def main():
 	root = tk.Tk()
 	capstone_gui = Main_GUI(root)

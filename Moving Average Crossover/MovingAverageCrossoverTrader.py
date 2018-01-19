@@ -26,12 +26,12 @@ class MovingAverageCrossoverTrader:
                 average = self.find_average(days)
                 if (price > average and buy==0.0): #predicting increase in price
                     if self.debug:
-                        print "day ", days, ", we bought at price: ", price
+                        print("day ", days, ", we bought at price: ", price)
                     buy = price
                 elif (price < average and buy != 0.0): #predicting drop in price
                     if self.debug:
-                        print "day ", days, ", we sold at price: ", price
-                        print "Profit for this trade: ", price - buy
+                        print("day ", days, ", we sold at price: ", price)
+                        print("Profit for this trade: ", price - buy)
                     self.profit += price - buy
                     buy = 0.0
             days += 1
@@ -45,7 +45,7 @@ class MovingAverageCrossoverTrader:
         #print "returns (buy and hold): ", self.prices[-1]/self.prices[0] * 100, "%"
 
 def test_currency(currency, filename):
-    print currency
+    print(currency)
     best_profit = 0
     best_mva = 0
     fl = open(filename)
@@ -60,10 +60,10 @@ def test_currency(currency, filename):
         if trader.get_profit() > best_profit:
             best_profit = trader.get_profit()
             best_mva = x
-    print "best profit: ", best_profit
-    print "best mva: ", best_mva
-    print "returns (buy and hold): ", prcs[-1]/prcs[0] * 100, "%"
-    print "returns (algorithm): ", best_profit/prcs[0] * 100, "%"
+    print("best profit: ", best_profit)
+    print("best mva: ", best_mva)
+    print("returns (buy and hold): ", prcs[-1]/prcs[0] * 100, "%")
+    print("returns (algorithm): ", best_profit/prcs[0] * 100, "%")
 
 
 def main():
