@@ -22,7 +22,7 @@ class Main_GUI:
 		#title for the window
 		master.title("Honors Capstone")
 		#dimensions of window (width then height)
-		master.geometry("900x600")
+		master.geometry("1100x650")
 		#window is not resizable
 		master.resizable(False, False)
 
@@ -95,25 +95,33 @@ class Main_GUI:
 		self.radio_litecoin.place(x = 0, y = 50, width=135, height=25)
 
 		self.button_run_algo = tk.Button(master, text="Run Algorithm", command=self.run_algo)
-		self.button_run_algo.place(x = 50, y = 510, width=150, height=50)
+		self.button_run_algo.place(x = 50, y = 540, width=150, height=50)
 
-		self.outputText = tk.Text(master, height=10, width=50, borderwidth=2, relief="groove")
+		self.outputText = tk.Text(master, height=10, width=70, borderwidth=2, relief="groove")
 		self.outputText.place(x = 500, y = 20)
 
 		self.outputText.config(state=tk.DISABLED)
 
 		self.outputText_scroller = tk.Scrollbar(master)
-		self.outputText_scroller.place(x = 850, y = 20)
+		self.outputText_scroller.place(x = 981, y = 25, height=150)
 		self.outputText_scroller.config(command=self.outputText.yview)
 		self.outputText.config(yscrollcommand=self.outputText_scroller.set)
 
-		f = Figure(figsize=(5,5), dpi=100)
-		a = f.add_subplot(111)
-		a.plot([1,2,3,4,5,6,7,8],[5,6,1,7,8,2,3,0])
+		movingAverageFigure = Figure(figsize=(5,5), dpi=100)
+		movingAveragePlot = movingAverageFigure.add_subplot(111)
+		movingAveragePlot.plot([1,2,3,4,5,6,7,8],[5,6,1,7,8,2,3,0])
 
-		canvas = FigureCanvasTkAgg(f, master)
+		totalAmountFigure = Figure(figsize=(5,5), dpi=100)
+		totalAmountPlot = totalAmountFigure.add_subplot(111)
+		totalAmountPlot.plot([1,2,3,4,5,6,7,8],[5,6,1,7,8,2,3,0])
+
+		canvas = FigureCanvasTkAgg(movingAverageFigure, master)
 		canvas.show()
-		canvas.get_tk_widget().place(x=240, y=180, height=400, width=700)
+		canvas.get_tk_widget().place(x=240, y=180, height=225, width=900)
+
+		canvas = FigureCanvasTkAgg(totalAmountFigure, master)
+		canvas.show()
+		canvas.get_tk_widget().place(x=240, y=405, height=225, width=900)
 
 
 	def run_algo(self):
