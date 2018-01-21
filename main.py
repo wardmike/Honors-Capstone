@@ -136,7 +136,8 @@ class Main_GUI:
 			#throw error
 			pass
 		else:
-			mva_days = int(self.entry_mva_days.get())
+			mva_days = self.entry_mva_days.get()
+			start_cash = self.entry_starting_money.get()
 			currency = ""
 			filename = ""
 			if self.currency_selected.get() == 0:
@@ -148,8 +149,8 @@ class Main_GUI:
 			elif self.currency_selected.get() == 2:
 				currency = "LTC"
 				filename = "prices/5-minute/litecoin.txt"
-			if currency != "" and mva_days != "":
-				trader = mva.MovingAverageCrossoverTrader(currency, mva_days, False, filename)
+			if currency != "" and mva_days != "" and start_cash != "":
+				trader = mva.MovingAverageCrossoverTrader(currency, int(mva_days), True, int(start_cash), filename)
 				trader.trade()
 				results = trader.results()
 				self.outputText.config(state=tk.NORMAL)

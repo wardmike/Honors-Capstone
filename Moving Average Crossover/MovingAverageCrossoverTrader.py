@@ -1,9 +1,10 @@
 class MovingAverageCrossoverTrader:
-    def __init__(self, name, mva, debug, filename):
+    def __init__(self, name, mva, debug, start_cash, filename):
         self.mva_days = mva
         self.buy = 0.0
-        self.profit = 0.0
-        self.cash = 1000.00
+        self.start_cash = float(start_cash) #setting to float to prevent integer division
+        self.cash = float(start_cash) #setting to float ot prevent integer division
+        self.shares = float(0) #setting to float ot prevent integer division
         self.debug = debug
         self.prices = []
         file_prices = open(filename, 'r')
@@ -20,27 +21,37 @@ class MovingAverageCrossoverTrader:
 
     def trade(self):
         days = 0
-        buy = self.prices[0]
+        #simulating buying right away
+        self.shares = self.cash / self.prices[0]
+        self.cash = 0.0
         for price in self.prices:
             if (days > self.mva_days):
                 average = self.find_average(days)
-                if (price > average and buy==0.0): #predicting increase in price
+                if (price > average and self.shares==0.0): #predicting increase in price
                     if self.debug:
                         print("day ", days, ", we bought at price: ", price)
-                    buy = price
-                elif (price < average and buy != 0.0): #predicting drop in price
+                    #buying shares
+                    self.shares = self.cash / float(price)
+                    self.cash = 0.0
+                elif (price < average and self.shares != 0.0): #predicting drop in price
                     if self.debug:
                         print("day ", days, ", we sold at price: ", price)
-                        print("Profit for this trade: ", price - buy)
-                    self.profit += price - buy
-                    buy = 0.0
+                    #selling shares
+                    self.cash = self.shares * float(price)
+                    self.shares = 0.0
             days += 1
+        #sell at the end
+        self.cash += self.shares * self.prices[-1]
+        self.shares = 0.0
 
     def get_profit(self):
-        return self.profit
+        return self.cash - self.start_cash
 
     def results(self):
-        result = "total profit: " + str(self.profit) + "\nreturns (algorithm): " + str(self.profit/self.prices[0] * 100) + "%\n"
+        returns_algo = float(self.get_profit()) / float(self.prices[0]) * 100
+        returns_buy_hold = ((self.start_cash * (self.prices[-1]/self.prices[0])) - self.start_cash)/self.start_cash * 100
+        #need to split this between lines
+        result = "total profit: " + str(self.get_profit()) + "\nreturns (algorithm): " + str(returns_algo) + "%\nreturns (buy and hold): " + str(returns_buy_hold) + "%\n"
         return result
         #print "returns (buy and hold): ", self.prices[-1]/self.prices[0] * 100, "%"
 
@@ -54,7 +65,7 @@ def test_currency(currency, filename):
         vals = line.split("|")
         prcs.append(float(vals[3]))
     for x in range(2, 240): #range changes depending on daily or 5-minutes
-        trader = MovingAverageCrossoverTrader(currency, x, False, filename)
+        trader = MovingAverageCrossoverTrader(currency, x, False, 1000, filename)
         trader.trade()
         trader.print_results()
         if trader.get_profit() > best_profit:
