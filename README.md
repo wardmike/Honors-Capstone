@@ -115,6 +115,10 @@ Percent Return (buying and holding):  142.3%
     <td>12/04/2017</td>
     <td>Met with Prof. Brim to discuss mean reversion trading and optimal data handling.</td>
   </tr>
+  <tr>
+    <td>1/22/2018</td>
+    <td>Met with Prof. Brim to discuss optimal moving average increments.</td>
+  </tr>
 </table>
 
 ## Research Sources
