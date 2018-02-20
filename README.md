@@ -2,12 +2,10 @@
 Honors Capstone for Michael Ward.  
 Utah State University -- May 2018.
 
-To run, clone the repo and make sure you have **Tkinter** and **Matplotlib** installed.  
-Then, run **python3 main.py** to run the GUI.  
-If you have any issues, feel free to email me at mikethebroski@gmail.com.
+http://capstone.mikethebro.com
 
-## Fundamental Goal
-To learn algorithmic trading by creating and testing various algorithms with live market prices.
+## Abstract
+This project takes several common strategies for algorithmic stock trading and tests them on the cryptocurrency market. The three strategies used are moving average crossover, mean reversion, and pairs trading. Data was collected every five minutes for the top one hundred cryptocurrencies starting October 5, 2017.  Due to the high volatility of the market, the data includes various market situations. Three noted situations are a rising market, falling market, and relatively stable market. The three strategies were modified to optimally follow each market situation. Modifications include adjusting parameters used in each strategy as well as mixing several strategies or dynamically changing between strategies. In each strategy and with each cryptocurrency, the benchmark the algorithm is tested against is the market's performance, or what an investor would have after buying and holding. Returns are compared with the buying and holding strategy, and different scenarios are analyzed to determine the risk associated with buying and holding compared with an algorithmic strategy. Results will be taken with the market's actual trends and also with some alternate possible trends to test all market scenarios. A web interface will accompany the presentation, allowing users to test the strategies by entering their own parameters and instantly see the results.
 
 ## Algorithms
 ### <a href="/Pairs/">Pairs Trading</a>
