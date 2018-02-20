@@ -7,6 +7,7 @@ class MovingAverageCrossoverTrader:
         self.shares = float(0) #setting to float ot prevent integer division
         self.debug = debug
         self.prices = []
+        self.mva_line = []
         file_prices = open(filename, 'r')
         lines = file_prices.read().splitlines()
         for line in lines:
@@ -27,6 +28,7 @@ class MovingAverageCrossoverTrader:
         for price in self.prices:
             if (days > self.mva_days):
                 average = self.find_average(days)
+                self.mva_line.append(average)
                 if (price > average and self.shares==0.0): #predicting increase in price
                     if self.debug:
                         print("day ", days, ", we bought at price: ", price)
@@ -43,6 +45,12 @@ class MovingAverageCrossoverTrader:
         #sell at the end
         self.cash += self.shares * self.prices[-1]
         self.shares = 0.0
+
+    def get_mva_line(self):
+        return self.mva_line
+
+    def get_price_line(self):
+        return self.prices
 
     def get_profit(self):
         return self.cash - self.start_cash

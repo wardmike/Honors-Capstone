@@ -1,0 +1,63 @@
+<html>
+<head>
+	<title>Capstone</title>
+	<link rel="stylesheet" type="text/css" href="{{ static_url("main.css") }}">
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+	<h1>Honors Capstone</h1>
+	<h3>Mike Ward</h3>
+	<form method="post">
+		<label for="mva_days">MVA</label>
+        <input type="text" value="{{ mva_days }}" name="mva_days"/>
+        in a multiple of 5 minutes
+        <br/>
+        <label for="cash">Starting Cash</label>
+        <input type="text" value="{{ cash }}" name="cash"/>
+        <br/>
+        <input type="radio" name="currency" id="btc" value="BTC" {{ btc_checked }}>
+        <label for="btc">Bitcoin</label>
+  		<br>
+  		<input type="radio" name="currency" id="eth" value="ETH" {{ eth_checked }}>
+  		<label for="eth">Ethereum</label>
+  		<br>
+  		<input type="radio" name="currency" id="ltc" value="LTC" {{ ltc_checked }}>
+  		<label for="ltc">Litecoin</label>
+  		<br>
+      <input type="radio" name="currency" id="bch" value="BCH" {{ bch_checked }}>
+      <label for="ltc">Bitcoin Cash</label>
+      <br>
+      <input type="radio" name="currency" id="xrp" value="XRP" {{ xrp_checked }}>
+      <label for="ltc">Ripple</label>
+      <br>
+        <input type="submit" value="Run Algo"/>
+        </form>
+	<p>{{ text }}</p>
+
+	<h2 style="text-align: center;">Price and Moving Average</h2>
+      <div id="chart" style="height=100%;"></div>
+      <script>
+      var price_line = {
+      	x: {{ price_data_x }},
+      	y: {{ price_data_y }},
+      	type: 'scatter',
+		name: 'price'
+      };
+      var mva_line = {
+      	x: {{ mva_data_x }},
+      	y: {{ mva_data_y }},
+      	type: 'scatter',
+		name: 'moving average'
+      };
+      var data = [price_line, mva_line];
+      var layout = {
+      xaxis: {
+        range: [0, 5]
+      },
+      yaxis: {
+        range: [0, 20]
+        }
+      };
+      Plotly.newPlot('chart', data);
+      </script>
+</html>
