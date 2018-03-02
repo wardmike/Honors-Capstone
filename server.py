@@ -22,11 +22,13 @@ class MainHandler(tornado.web.RequestHandler):
             price_data_x=[],
             price_data_y=[],
             mva_data_x=[],
-            mva_data_y=[]
+            mva_data_y=[],
+            algo_data_y=[],
+            hold_data_y=[]
             )
 
     def post(self):
-        mva_days_input = int(self.get_argument('mva_days'))
+        mva_5_min_input = int(float(self.get_argument('mva_days')) * 288)
         cash_input = int(self.get_argument('cash'))
         currency = self.get_argument('currency')
         btc_checked = ""
@@ -50,13 +52,15 @@ class MainHandler(tornado.web.RequestHandler):
         elif (currency == "XRP"):
             filename = "prices/5-minute/ripple.txt"
             xrp_checked = "checked"
-        trader = mva.MovingAverageCrossoverTrader(currency, mva_days_input, True, cash_input, filename)
+        trader = mva.MovingAverageCrossoverTrader(currency, mva_5_min_input, True, cash_input, filename)
         trader.trade()
         results = trader.results()
         price_line = trader.get_price_line()
         mva_line = trader.get_mva_line()
+        algo_line = trader.get_algo_line()
+        hold_line = trader.get_hold_line()
         self.render("template.html",
-            mva_days=mva_days_input,
+            mva_days= round(float(mva_5_min_input) / float(288), 1),
             cash=cash_input,
             text=results,
             btc_checked=btc_checked,
@@ -66,8 +70,10 @@ class MainHandler(tornado.web.RequestHandler):
             xrp_checked=xrp_checked,
             price_data_x=list(range(0, len(price_line))),
             price_data_y=price_line,
-            mva_data_x=list(range(mva_days_input, len(mva_line) + mva_days_input)),
-            mva_data_y=mva_line
+            mva_data_x=list(range(mva_5_min_input, len(mva_line) + mva_5_min_input)),
+            mva_data_y=mva_line,
+            algo_data_y=algo_line,
+            hold_data_y=hold_line
             )
 
 class Server(tornado.web.Application):
