@@ -7,11 +7,37 @@
 <body>
 	<h1>Honors Capstone</h1>
 	<h3>Mike Ward</h3>
+  <!-- full form -->
 	<form method="post">
+
+    <!-- section for simple moving average crossover -->
+    <div class="mva-simple">
+      <h2 class="center">Simple Moving Average Crossover</h2>
 		<label for="mva_days">MVA</label>
         <input type="text" value="{{ mva_days }}" name="mva_days"/>
         days
         <br/>
+    </div>
+
+    <!-- section for exponential moving average crossover -->
+    <div class="mva-exponential">
+      <h2 class="center">Expoential Moving Average Crossover</h2>
+      <p class="center">Not implemented yet</p>
+    </div>
+
+    <!-- section for mean reversion -->
+    <div class="mean-reversion">
+      <h2 class="center">Mean Reversion</h2>
+      <p class="center">Not implemented yet</p>
+    </div>
+
+    <!-- section for pairs trading -->
+    <div class="pairs-trading">
+      <h2 class="center">Pairs Trading</h2>
+      <p class="center">Not implemented yet</p>
+    </div>
+
+    <div class="all">
         <label for="cash">Starting Cash</label>
         <input type="text" value="{{ cash }}" name="cash"/>
         <br/>
@@ -30,6 +56,7 @@
       <input type="radio" name="currency" id="xrp" value="XRP" {{ xrp_checked }}>
       <label for="ltc">Ripple</label>
       <br>
+    </div>
         <input type="submit" value="Run Algo"/>
         </form>
 	<p>{{ text }}</p>

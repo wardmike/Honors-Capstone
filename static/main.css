@@ -5,3 +5,40 @@ h1 {
 h3 {
 	text-align: center;
 }
+
+.center {
+	text-align: center;
+}
+
+/* section for options only used for simple MVA */
+div.mva-simple {
+	border: solid;
+	float: left;
+	width: 24%;
+}
+
+/* section for options only used for exponential MVA */
+div.mva-exponential {
+	border: solid;
+	float: left;
+	width: 24%;
+}
+
+/* section for options only used for mean reversion */
+div.mean-reversion {
+	border: solid;
+	float: left;
+	width: 24%;
+}
+
+/* section for options only used for pairs trading */
+div.pairs-trading {
+	border: solid;
+	float: left;
+	width: 24%;
+}
+
+/* section for options used by all strategies */
+div.all {
+	clear: both;
+}
