@@ -1,4 +1,4 @@
-class MovingAverageCrossoverTrader:
+class SimpleMovingAverageCrossoverTrader:
     def __init__(self, name, mva, debug, start_cash, filename):
         self.mva_days = mva
         self.buy = 0.0

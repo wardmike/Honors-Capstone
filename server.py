@@ -3,9 +3,9 @@ import tornado.web
 import tornado.httpserver
 import os, sys
 
-sys.path.insert(0, os.path.normpath('Moving Average Crossover'))
+sys.path.insert(0, os.path.normpath('Simple Moving Average Crossover'))
 
-import MovingAverageCrossoverTrader as mva
+import SimpleMovingAverageCrossoverTrader as simple_mva
 
 
 class MainHandler(tornado.web.RequestHandler):
@@ -52,7 +52,7 @@ class MainHandler(tornado.web.RequestHandler):
         elif (currency == "XRP"):
             filename = "prices/5-minute/ripple.txt"
             xrp_checked = "checked"
-        trader = mva.MovingAverageCrossoverTrader(currency, mva_5_min_input, True, cash_input, filename)
+        trader = simple_mva.SimpleMovingAverageCrossoverTrader(currency, mva_5_min_input, True, cash_input, filename)
         trader.trade()
         results = trader.results()
         price_line = trader.get_price_line()
