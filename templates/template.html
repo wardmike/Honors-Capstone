@@ -38,15 +38,30 @@
       <input type="text" value="{{ pairs_mva }}" name="pairs_mva"/>
         days
       <br/>
+      <input type="radio" name="currency2" id="btc" value="BTC" {{ btc_checked }}>
+      <label for="btc">Bitcoin</label>
+      <br>
+      <input type="radio" name="currency2" id="eth" value="ETH" {{ eth_checked }}>
+      <label for="eth">Ethereum</label>
+      <br>
+      <input type="radio" name="currency2" id="ltc" value="LTC" {{ ltc_checked }}>
+      <label for="ltc">Litecoin</label>
+      <br>
+      <input type="radio" name="currency2" id="bch" value="BCH" {{ bch_checked }}>
+      <label for="ltc">Bitcoin Cash</label>
+      <br>
+      <input type="radio" name="currency2" id="xrp" value="XRP" {{ xrp_checked }}>
+      <label for="ltc">Ripple</label>
+      <br>
       <input type="submit" name="run_pairs" value="Run Pairs"/>
     </div>
 
     <div class="all">
-        <label for="cash">Starting Cash</label>
-        <input type="text" value="{{ cash }}" name="cash"/>
-        <br/>
-        <input type="radio" name="currency" id="btc" value="BTC" {{ btc_checked }}>
-        <label for="btc">Bitcoin</label>
+      <label for="cash">Starting Cash</label>
+      <input type="text" value="{{ cash }}" name="cash"/>
+      <br/>
+      <input type="radio" name="currency" id="btc" value="BTC" {{ btc_checked }}>
+      <label for="btc">Bitcoin</label>
   		<br>
   		<input type="radio" name="currency" id="eth" value="ETH" {{ eth_checked }}>
   		<label for="eth">Ethereum</label>
@@ -61,33 +76,48 @@
       <label for="ltc">Ripple</label>
       <br>
     </div>
-        </form>
+  </form>
 	<p>{{ text }}</p>
 
-  <!-- upper graph -->
-  <div class="top-graph" style="display: {{mva_display}};">
-	   <h2 class="top-graph" style="text-align: center;">Price and Moving Average</h2>
-     <div id="chart" style="height: 50%;"></div>
+  <!-- mva graph -->
+  <div class="chart-mva" style="display: {{mva_display}};">
+	   <h2 class="chart-mva" style="text-align: center;">Price and Moving Average</h2>
+     <div id="chart-mva" style="height: 50%;"></div>
   </div>
 
-  <!-- lower graph -->
-  <div class="lower-graph" style="display: {{mva_display}};">
-    <h2 class="top-graph" style="text-align: center;">Algorithm vs. Holding</h2>
-    <div id="chart2" style="height: 50%;display: {{mva_display}}"></div>
+  <!-- algo vs. holding graph (2 lines) -->
+  <div class="chart-hold/algo-2" style="display: {{mva_display}};">
+    <h2 class="chart-hold/algo-2" style="text-align: center;">Algorithm vs. Holding</h2>
+    <div id="chart-hold/algo-2" style="height: 50%;display: {{mva_display}}"></div>
   </div>
+
+  <!-- algo vs. holding graph (3 lines) -->
+  <div class="chart-hold/algo-3" style="display: {{pairs_display}};">
+    <h2 class="chart-hold/algo-3" style="text-align: center;">Algorithm vs. Holding</h2>
+    <div id="chart-hold/algo-3" style="height: 50%;display: {{pairs_display}}"></div>
+  </div>
+
+
   <script>
+      //-------------------------------------------------
+      // chart-mva: graphs price and moving average
+      //-------------------------------------------------
+
+      // line for the price of the currency
       var price_line = {
       	x: {{ price_data_x }},
       	y: {{ price_data_y }},
       	type: 'scatter',
-		name: 'price'
+		    name: 'price'
       };
+      // line for the moving average
       var mva_line = {
       	x: {{ mva_data_x }},
       	y: {{ mva_data_y }},
       	type: 'scatter',
-		name: 'moving average'
+		    name: 'moving average'
       };
+      // data for the mva graph
       var data = [price_line, mva_line];
       var layout = {
       xaxis: {
@@ -97,19 +127,20 @@
         range: [0, 20]
         }
       };
-      Plotly.newPlot('chart', data);
-      var price_line = {
-        x: {{ price_data_x }},
-        y: {{ hold_data_y }},
-        type: 'scatter',
-    name: 'holding'
-      };
+      Plotly.newPlot('chart-mva', data); //plot the graph
+      //-------------------------------------------------
+      // chart-hold/algo-2: graphs price for holding
+      // and value of the algorithm over time
+      //-------------------------------------------------
+
+      // line for the holdings of the algorithm
       var algo_line = {
         x: {{ price_data_x }},
         y: {{ algo_data_y }},
         type: 'scatter',
-    name: 'algorithm'
+        name: 'algorithm'
       };
+      // data for the hold/algo graph
       var data = [price_line, algo_line];
       var layout = {
       xaxis: {
@@ -119,6 +150,37 @@
         range: [0, 20]
         }
       };
-      Plotly.newPlot('chart2', data);
+      Plotly.newPlot('chart-hold/algo-2', data); //plot the graph
+
+      //-------------------------------------------------
+      // chart-hold/algo-3: graphs price of both
+      // currences and value of the algorithm over time
+      //-------------------------------------------------
+
+      // line for the second price of the currency
+      var second_price_line = {
+        x: {{ price_data_x }},
+        y: {{ hold_2_data_y }},
+        type: 'scatter',
+        name: 'holding'
+      };
+      // line for the holdings of the algorithm
+      var algo_line = {
+        x: {{ price_data_x }},
+        y: {{ algo_data_y }},
+        type: 'scatter',
+        name: 'algorithm'
+      };
+      // data for the hold/hold/algo graph
+      var data = [price_line, second_price_line, algo_line];
+      var layout = {
+      xaxis: {
+        range: [0, 5]
+      },
+      yaxis: {
+        range: [0, 20]
+        }
+      };
+      Plotly.newPlot('chart-hold/algo-3', data); //plot the graph
       </script>
 </html>

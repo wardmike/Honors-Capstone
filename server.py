@@ -16,6 +16,7 @@ class MainHandler(tornado.web.RequestHandler):
             mva_days="",
             pairs_mva="",
             mva_display="none",
+            pairs_display="none",
             cash="",
             text="",
             btc_checked="",
@@ -28,7 +29,8 @@ class MainHandler(tornado.web.RequestHandler):
             mva_data_x=[],
             mva_data_y=[],
             algo_data_y=[],
-            hold_data_y=[]
+            hold_data_y=[],
+            hold_2_data_y=[]
             )
 
     def run_mva(self, currency, mva_5_min_input, debug, cash_input, filename):
@@ -60,6 +62,7 @@ class MainHandler(tornado.web.RequestHandler):
             mva_days=round(float(mva_5_min_input) / float(288), 1),
             pairs_mva="",
             mva_display="block",
+            pairs_display="none",
             cash=cash_input,
             text=results,
             btc_checked=btc_checked,
@@ -72,7 +75,54 @@ class MainHandler(tornado.web.RequestHandler):
             mva_data_x=list(range(mva_5_min_input, len(mva_line) + mva_5_min_input)),
             mva_data_y=mva_line,
             algo_data_y=algo_line,
-            hold_data_y=hold_line
+            hold_data_y=hold_line,
+            hold_2_data_y=[]
+        )
+
+    def run_pairs(self, currency1, currency2, mva_5_min_input, debug, cash_input, filename1, filename2):
+        ### get results from Simple Moving Average Crossover Trader ###
+        trader = simple_mva.SimpleMovingAverageCrossoverTrader(currency, mva_5_min_input, debug, cash_input, filename)
+        trader.trade()
+        results = trader.results()
+        price_line = trader.get_price_line()
+        mva_line = trader.get_mva_line()
+        algo_line = trader.get_algo_line()
+        hold_line = trader.get_hold_line()
+        ### handle setting correct checkbox ###
+        btc_checked = ""
+        eth_checked = ""
+        ltc_checked = ""
+        bch_checked = ""
+        xrp_checked = ""
+        if (currency == "BTC"):
+            btc_checked = "checked"
+        elif (currency == "ETH"):
+            eth_checked = "checked"
+        elif (currency == "LTC"):
+            ltc_checked = "checked"
+        elif (currency == "BCH"):
+            bch_checked = "checked"
+        elif (currency == "XRP"):
+            xrp_checked = "checked"
+        self.render("template.html",
+            mva_days=round(float(mva_5_min_input) / float(288), 1),
+            pairs_mva="",
+            mva_display="none",
+            pairs_display="block",
+            cash=cash_input,
+            text=results,
+            btc_checked=btc_checked,
+            eth_checked=eth_checked,
+            ltc_checked=ltc_checked,
+            bch_checked=bch_checked,
+            xrp_checked=xrp_checked,
+            price_data_x=list(range(0, len(price_line))),
+            price_data_y=price_line,
+            mva_data_x=list(range(mva_5_min_input, len(mva_line) + mva_5_min_input)),
+            mva_data_y=mva_line,
+            algo_data_y=algo_line,
+            hold_data_y=hold_line,
+            hold_2_data_y=[]
         )
 
     def post(self):
