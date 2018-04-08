@@ -4,6 +4,8 @@ import tornado.httpserver
 import os, sys
 
 sys.path.insert(0, os.path.normpath('Simple Moving Average Crossover'))
+sys.path.insert(0, os.path.normpath('Exponential Moving Average Crossover'))
+sys.path.insert(0, os.path.normpath('Pairs Trading'))
 
 import SimpleMovingAverageCrossoverTrader as simple_mva
 
@@ -12,6 +14,8 @@ class MainHandler(tornado.web.RequestHandler):
     def get(self):
     	self.render("template.html",
             mva_days="",
+            pairs_mva="",
+            mva_display="none",
             cash="",
             text="",
             btc_checked="",
@@ -27,40 +31,35 @@ class MainHandler(tornado.web.RequestHandler):
             hold_data_y=[]
             )
 
-    def post(self):
-        mva_5_min_input = int(float(self.get_argument('mva_days')) * 288)
-        cash_input = int(self.get_argument('cash'))
-        currency = self.get_argument('currency')
-        btc_checked = ""
-        eth_checked = ""
-        ltc_checked = ""
-        bch_checked = ""
-        xrp_checked = ""
-        filename = ""
-        if (currency == "BTC"):
-            btc_checked = "checked"
-            filename = "prices/5-minute/bitcoin.txt"
-        elif (currency == "ETH"):
-            filename = "prices/5-minute/ethereum.txt"
-            eth_checked = "checked"
-        elif (currency == "LTC"):
-            filename = "prices/5-minute/litecoin.txt"
-            ltc_checked = "checked"
-        elif (currency == "BCH"):
-            filename = "prices/5-minute/bitcoin-cash.txt"
-            bch_checked = "checked"
-        elif (currency == "XRP"):
-            filename = "prices/5-minute/ripple.txt"
-            xrp_checked = "checked"
-        trader = simple_mva.SimpleMovingAverageCrossoverTrader(currency, mva_5_min_input, True, cash_input, filename)
+    def run_mva(self, currency, mva_5_min_input, debug, cash_input, filename):
+        ### get results from Simple Moving Average Crossover Trader ###
+        trader = simple_mva.SimpleMovingAverageCrossoverTrader(currency, mva_5_min_input, debug, cash_input, filename)
         trader.trade()
         results = trader.results()
         price_line = trader.get_price_line()
         mva_line = trader.get_mva_line()
         algo_line = trader.get_algo_line()
         hold_line = trader.get_hold_line()
+        ### handle setting correct checkbox ###
+        btc_checked = ""
+        eth_checked = ""
+        ltc_checked = ""
+        bch_checked = ""
+        xrp_checked = ""
+        if (currency == "BTC"):
+            btc_checked = "checked"
+        elif (currency == "ETH"):
+            eth_checked = "checked"
+        elif (currency == "LTC"):
+            ltc_checked = "checked"
+        elif (currency == "BCH"):
+            bch_checked = "checked"
+        elif (currency == "XRP"):
+            xrp_checked = "checked"
         self.render("template.html",
-            mva_days= round(float(mva_5_min_input) / float(288), 1),
+            mva_days=round(float(mva_5_min_input) / float(288), 1),
+            pairs_mva="",
+            mva_display="block",
             cash=cash_input,
             text=results,
             btc_checked=btc_checked,
@@ -74,7 +73,31 @@ class MainHandler(tornado.web.RequestHandler):
             mva_data_y=mva_line,
             algo_data_y=algo_line,
             hold_data_y=hold_line
-            )
+        )
+
+    def post(self):
+        ### get values from form ###
+        cash_input = int(self.get_argument('cash'))
+        currency = self.get_argument('currency')
+        debug = True
+        ### find correct filename ###
+        filename = ""
+        if (currency == "BTC"):
+            filename = "prices/5-minute/bitcoin.txt"
+        elif (currency == "ETH"):
+            filename = "prices/5-minute/ethereum.txt"
+        elif (currency == "LTC"):
+            filename = "prices/5-minute/litecoin.txt"
+        elif (currency == "BCH"):
+            filename = "prices/5-minute/bitcoin-cash.txt"
+        elif (currency == "XRP"):
+            filename = "prices/5-minute/ripple.txt"
+        if self.get_argument("run_mva"):
+            mva_5_min_input = int(float(self.get_argument('mva_days')) * 288)
+            self.run_mva(currency, mva_5_min_input, debug, cash_input, filename)
+        elif self.get_argument("run_pairs"):
+            pass
+    
 
 class Server(tornado.web.Application):
     def __init__(self):

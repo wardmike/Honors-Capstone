@@ -17,6 +17,7 @@
         <input type="text" value="{{ mva_days }}" name="mva_days"/>
         days
         <br/>
+        <input type="submit" name="run_mva" value="Run MVA"/>
     </div>
 
     <!-- section for exponential moving average crossover -->
@@ -34,7 +35,10 @@
     <!-- section for pairs trading -->
     <div class="pairs-trading">
       <h2 class="center">Pairs Trading</h2>
-      <p class="center">Not implemented yet</p>
+      <input type="text" value="{{ pairs_mva }}" name="pairs_mva"/>
+        days
+      <br/>
+      <input type="submit" name="run_pairs" value="Run Pairs"/>
     </div>
 
     <div class="all">
@@ -57,14 +61,20 @@
       <label for="ltc">Ripple</label>
       <br>
     </div>
-        <input type="submit" value="Run Algo"/>
         </form>
 	<p>{{ text }}</p>
 
-	<h2 style="text-align: center;">Price and Moving Average</h2>
-  <div id="chart" style="height=100%;"></div>
-  <h2 style="text-align: center;">Algorithm vs. Holding</h2>
-  <div id="chart2" style="height=100%;"></div>
+  <!-- upper graph -->
+  <div class="top-graph" style="display: {{mva_display}};">
+	   <h2 class="top-graph" style="text-align: center;">Price and Moving Average</h2>
+     <div id="chart" style="height: 50%;"></div>
+  </div>
+
+  <!-- lower graph -->
+  <div class="lower-graph" style="display: {{mva_display}};">
+    <h2 class="top-graph" style="text-align: center;">Algorithm vs. Holding</h2>
+    <div id="chart2" style="height: 50%;display: {{mva_display}}"></div>
+  </div>
   <script>
       var price_line = {
       	x: {{ price_data_x }},
