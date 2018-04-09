@@ -21,13 +21,13 @@ class MainHandler(tornado.web.RequestHandler):
             pairs_display="none",
             cash="",
             text="",
-            btc_checked="",
+            btc_checked="checked",
             eth_checked="",
             ltc_checked="",
             bch_checked="",
             xrp_checked="",
             btc2_checked="",
-            eth2_checked="",
+            eth2_checked="checked",
             ltc2_checked="",
             bch2_checked="",
             xrp2_checked="",
@@ -40,7 +40,7 @@ class MainHandler(tornado.web.RequestHandler):
             hold_lower_data_y=[]
             )
 
-    def run_mva(self, currency, mva_5_min_input, debug, cash_input, filename):
+    def run_mva(self, currency, currency2, mva_5_min_input, debug, cash_input, filename):
         ### get results from Simple Moving Average Crossover Trader ###
         trader = simple_mva.SimpleMovingAverageCrossoverTrader(currency, mva_5_min_input, debug, cash_input, filename)
         trader.trade()
@@ -86,7 +86,7 @@ class MainHandler(tornado.web.RequestHandler):
             mva_display="block",
             pairs_display="none",
             cash=cash_input,
-            text=results,
+            text="", #results are inaccurate
             btc_checked=btc_checked,
             eth_checked=eth_checked,
             ltc_checked=ltc_checked,
@@ -176,6 +176,7 @@ class MainHandler(tornado.web.RequestHandler):
         ### get values from form ###
         cash_input = int(self.get_argument('cash'))
         currency = self.get_argument('currency')
+        currency2 = self.get_argument('currency2')
         mva_5_min_input = int(float(self.get_argument('mva_days')) * 288)
         debug = True
         ### find correct filename ###
@@ -191,10 +192,9 @@ class MainHandler(tornado.web.RequestHandler):
         elif (currency == "XRP"):
             filename = "prices/5-minute/ripple.txt"
         if self.get_argument("run_mva", None) != None: 
-            self.run_mva(currency, mva_5_min_input, debug, cash_input, filename)
+            self.run_mva(currency, currency2, mva_5_min_input, debug, cash_input, filename)
         elif self.get_argument("run_pairs", None) != None:
             filename2 = ""
-            currency2 = self.get_argument('currency2')
             if (currency2 == "BTC"):
                 filename2 = "prices/5-minute/bitcoin.txt"
             elif (currency2 == "ETH"):

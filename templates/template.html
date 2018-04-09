@@ -91,7 +91,7 @@
   <!-- algo vs. holding graph (3 lines) -->
   <div class="chart-hold/algo-3" style="display: {{pairs_display}};">
     <h2 class="chart-hold/algo-3" style="text-align: center;">Pairs Trading: Algorithm vs. Holding</h2>
-    <div id="chart-hold/algo-3" style="height: 50%;display: {{pairs_display}}"></div>
+    <div id="chart-hold/algo-3" style="height: 65%;display: {{pairs_display}}"></div>
   </div>
 
 
@@ -134,7 +134,7 @@
         x: {{ price_data_x }},
         y: {{ hold_higher_data_y }},
         type: 'scatter',
-        name: 'Holding Currency'
+        name: 'Bitcoin'
       };
 
       // line for the holdings of the algorithm
@@ -166,7 +166,7 @@
         x: {{ price_data_x }},
         y: {{ hold_lower_data_y }},
         type: 'scatter',
-        name: 'Holding Currency'
+        name: 'Ethereum'
       };
       // line for the holdings of the algorithm
       var algo_line = {
