@@ -9,14 +9,34 @@
 	<h3>Mike Ward</h3>
   <!-- full form -->
 	<form method="post">
+    <!-- section shared by all algorithms -->
+    <div class="all">
+      <label for="mva_days">MVA</label>
+      <input type="text" value="{{ mva_days }}" name="mva_days"/>
+        days
+      <br/>
+      <label for="cash">Starting Cash</label>
+      <input type="text" value="{{ cash }}" name="cash"/>
+      <br/>
+      <input type="radio" name="currency" id="btc" value="BTC" {{ btc_checked }}>
+      <label for="btc">Bitcoin</label>
+      <br>
+      <input type="radio" name="currency" id="eth" value="ETH" {{ eth_checked }}>
+      <label for="eth">Ethereum</label>
+      <br>
+      <input type="radio" name="currency" id="ltc" value="LTC" {{ ltc_checked }}>
+      <label for="ltc">Litecoin</label>
+      <br>
+      <input type="radio" name="currency" id="bch" value="BCH" {{ bch_checked }}>
+      <label for="ltc">Bitcoin Cash</label>
+      <br>
+      <input type="radio" name="currency" id="xrp" value="XRP" {{ xrp_checked }}>
+      <label for="ltc">Ripple</label>
+    </div>
 
     <!-- section for simple moving average crossover -->
     <div class="mva-simple">
       <h2 class="center">Simple Moving Average Crossover</h2>
-		<label for="mva_days">MVA</label>
-        <input type="text" value="{{ mva_days }}" name="mva_days"/>
-        days
-        <br/>
         <input type="submit" name="run_mva" value="Run MVA"/>
     </div>
 
@@ -35,47 +55,24 @@
     <!-- section for pairs trading -->
     <div class="pairs-trading">
       <h2 class="center">Pairs Trading</h2>
-      <input type="text" value="{{ pairs_mva }}" name="pairs_mva"/>
-        days
-      <br/>
-      <input type="radio" name="currency2" id="btc" value="BTC" {{ btc_checked }}>
+      <input type="radio" name="currency2" id="btc" value="BTC" {{ btc2_checked }}>
       <label for="btc">Bitcoin</label>
       <br>
-      <input type="radio" name="currency2" id="eth" value="ETH" {{ eth_checked }}>
+      <input type="radio" name="currency2" id="eth" value="ETH" {{ eth2_checked }}>
       <label for="eth">Ethereum</label>
       <br>
-      <input type="radio" name="currency2" id="ltc" value="LTC" {{ ltc_checked }}>
+      <input type="radio" name="currency2" id="ltc" value="LTC" {{ ltc2_checked }}>
       <label for="ltc">Litecoin</label>
       <br>
-      <input type="radio" name="currency2" id="bch" value="BCH" {{ bch_checked }}>
+      <input type="radio" name="currency2" id="bch" value="BCH" {{ bch2_checked }}>
       <label for="ltc">Bitcoin Cash</label>
       <br>
-      <input type="radio" name="currency2" id="xrp" value="XRP" {{ xrp_checked }}>
+      <input type="radio" name="currency2" id="xrp" value="XRP" {{ xrp2_checked }}>
       <label for="ltc">Ripple</label>
       <br>
       <input type="submit" name="run_pairs" value="Run Pairs"/>
     </div>
 
-    <div class="all">
-      <label for="cash">Starting Cash</label>
-      <input type="text" value="{{ cash }}" name="cash"/>
-      <br/>
-      <input type="radio" name="currency" id="btc" value="BTC" {{ btc_checked }}>
-      <label for="btc">Bitcoin</label>
-  		<br>
-  		<input type="radio" name="currency" id="eth" value="ETH" {{ eth_checked }}>
-  		<label for="eth">Ethereum</label>
-  		<br>
-  		<input type="radio" name="currency" id="ltc" value="LTC" {{ ltc_checked }}>
-  		<label for="ltc">Litecoin</label>
-  		<br>
-      <input type="radio" name="currency" id="bch" value="BCH" {{ bch_checked }}>
-      <label for="ltc">Bitcoin Cash</label>
-      <br>
-      <input type="radio" name="currency" id="xrp" value="XRP" {{ xrp_checked }}>
-      <label for="ltc">Ripple</label>
-      <br>
-    </div>
   </form>
 	<p>{{ text }}</p>
 
@@ -93,7 +90,7 @@
 
   <!-- algo vs. holding graph (3 lines) -->
   <div class="chart-hold/algo-3" style="display: {{pairs_display}};">
-    <h2 class="chart-hold/algo-3" style="text-align: center;">Algorithm vs. Holding</h2>
+    <h2 class="chart-hold/algo-3" style="text-align: center;">Pairs Trading: Algorithm vs. Holding</h2>
     <div id="chart-hold/algo-3" style="height: 50%;display: {{pairs_display}}"></div>
   </div>
 
@@ -133,6 +130,13 @@
       // and value of the algorithm over time
       //-------------------------------------------------
 
+      var hold_higher_line = {
+        x: {{ price_data_x }},
+        y: {{ hold_higher_data_y }},
+        type: 'scatter',
+        name: 'Holding Currency'
+      };
+
       // line for the holdings of the algorithm
       var algo_line = {
         x: {{ price_data_x }},
@@ -141,7 +145,7 @@
         name: 'algorithm'
       };
       // data for the hold/algo graph
-      var data = [price_line, algo_line];
+      var data = [hold_higher_line, algo_line];
       var layout = {
       xaxis: {
         range: [0, 5]
@@ -158,21 +162,21 @@
       //-------------------------------------------------
 
       // line for the second price of the currency
-      var second_price_line = {
+      var hold_lower_line = {
         x: {{ price_data_x }},
-        y: {{ hold_2_data_y }},
+        y: {{ hold_lower_data_y }},
         type: 'scatter',
-        name: 'holding'
+        name: 'Holding Currency'
       };
       // line for the holdings of the algorithm
       var algo_line = {
         x: {{ price_data_x }},
         y: {{ algo_data_y }},
         type: 'scatter',
-        name: 'algorithm'
+        name: 'Algorithm'
       };
       // data for the hold/hold/algo graph
-      var data = [price_line, second_price_line, algo_line];
+      var data = [hold_higher_line, hold_lower_line, algo_line];
       var layout = {
       xaxis: {
         range: [0, 5]
