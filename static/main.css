@@ -1,3 +1,8 @@
+body {
+	background-color: #801515;
+	color: white;
+}
+
 h1 {
 	text-align: center;
 }
@@ -14,7 +19,10 @@ h3 {
 div.mva-simple {
 	border: solid;
 	float: left;
-	width: 24%;
+	width: 30%;
+	margin-left: 20%;
+	height: 25%;
+	min-height: 220px
 }
 
 /* section for options only used for exponential MVA */
@@ -22,6 +30,7 @@ div.mva-exponential {
 	border: solid;
 	float: left;
 	width: 24%;
+	display: none;
 }
 
 /* section for options only used for mean reversion */
@@ -29,16 +38,76 @@ div.mean-reversion {
 	border: solid;
 	float: left;
 	width: 24%;
+	display: none;
 }
 
 /* section for options only used for pairs trading */
 div.pairs-trading {
 	border: solid;
 	float: left;
-	width: 24%;
+	width: 30%;
+	height: 25%;
+	min-height: 220px;
+}
+
+div.pairs-radio {
+	margin-left: 10%;
+	display: inline-block;
 }
 
 /* section for options used by all strategies */
 div.all {
+	border: solid;
+	width: 60.45%;
+	margin-left: 20%;
+	text-align: center;
+}
+div.graphs {
 	clear: both;
+}
+
+input[type=text] {
+    border: 4px solid #4CAF50;
+    border-radius: 4px;
+    width: 5%;
+    min-width: 50px;
+}
+
+input[type=text]:hover {
+	border: 4px solid orange;
+    background-color: lightblue;
+}
+
+input[type=text]:focus {
+	border: 4px solid red;
+    background-color: lightblue;
+}
+
+input[type=button], input[type=submit], input[type=reset] {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover {
+    background-color: orange;
+}
+
+input[type=button]:active, input[type=submit]:active, input[type=reset]:active {
+    background-color: red;
+}
+
+input.pairs-button {
+	margin-left: 10%;
+	margin-top: -20%;
+}
+
+input.simple-mva_button {
+	margin-right: 10%;
+	margin-top: 17%;
+	float: right;
 }

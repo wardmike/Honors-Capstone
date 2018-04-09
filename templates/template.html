@@ -10,6 +10,7 @@
   <!-- full form -->
 	<form method="post">
     <!-- section shared by all algorithms -->
+    <h2 class="center">Step One: Select Parameters for All Algorithms</h2>
     <div class="all">
       <label for="mva_days">MVA</label>
       <input type="text" value="{{ mva_days }}" name="mva_days"/>
@@ -34,10 +35,11 @@
       <label for="ltc">Ripple</label>
     </div>
 
+    <h2 class="center">Step Two: Select Invididual Parameters and Run Algorithm</h2>
     <!-- section for simple moving average crossover -->
     <div class="mva-simple">
       <h2 class="center">Simple Moving Average Crossover</h2>
-        <input type="submit" name="run_mva" value="Run MVA"/>
+        <input type="submit" class="simple-mva_button" name="run_mva" value="Run MVA"/>
     </div>
 
     <!-- section for exponential moving average crossover -->
@@ -55,45 +57,50 @@
     <!-- section for pairs trading -->
     <div class="pairs-trading">
       <h2 class="center">Pairs Trading</h2>
-      <input type="radio" name="currency2" id="btc" value="BTC" {{ btc2_checked }}>
-      <label for="btc">Bitcoin</label>
-      <br>
-      <input type="radio" name="currency2" id="eth" value="ETH" {{ eth2_checked }}>
-      <label for="eth">Ethereum</label>
-      <br>
-      <input type="radio" name="currency2" id="ltc" value="LTC" {{ ltc2_checked }}>
-      <label for="ltc">Litecoin</label>
-      <br>
-      <input type="radio" name="currency2" id="bch" value="BCH" {{ bch2_checked }}>
-      <label for="ltc">Bitcoin Cash</label>
-      <br>
-      <input type="radio" name="currency2" id="xrp" value="XRP" {{ xrp2_checked }}>
-      <label for="ltc">Ripple</label>
-      <br>
-      <input type="submit" name="run_pairs" value="Run Pairs"/>
+      <input type="submit" class="pairs-button" name="run_pairs" value="Run Pairs"/>
+      <div class="pairs-radio">
+        <input type="radio" name="currency2" id="btc" value="BTC" {{ btc2_checked }}>
+        <label for="btc">Bitcoin</label>
+        <br>
+        <input type="radio" name="currency2" id="eth" value="ETH" {{ eth2_checked }}>
+        <label for="eth">Ethereum</label>
+        <br>
+        <input type="radio" name="currency2" id="ltc" value="LTC" {{ ltc2_checked }}>
+        <label for="ltc">Litecoin</label>
+        <br>
+        <input type="radio" name="currency2" id="bch" value="BCH" {{ bch2_checked }}>
+        <label for="ltc">Bitcoin Cash</label>
+        <br>
+        <input type="radio" name="currency2" id="xrp" value="XRP" {{ xrp2_checked }}>
+        <label for="ltc">Ripple</label>
+      </div>
     </div>
 
   </form>
 	<p>{{ text }}</p>
 
-  <!-- mva graph -->
-  <div class="chart-mva" style="display: {{mva_display}};">
-	   <h2 class="chart-mva" style="text-align: center;">Price and Moving Average</h2>
-     <div id="chart-mva" style="height: 50%;"></div>
-  </div>
+  <br>
+  <div class="graphs">
+    <h2 class="center" style="display: {{mva_display}};">Step Three: View Results</h2>
+    <h2 class="center" style="display: {{pairs_display}};">Step Three: View Results</h2>
+    <!-- mva graph -->
+    <div class="chart-mva" style="display: {{mva_display}};">
+  	   <h2 class="chart-mva" style="text-align: center;">Price and Moving Average</h2>
+       <div id="chart-mva" style="height: 50%;"></div>
+    </div>
 
-  <!-- algo vs. holding graph (2 lines) -->
-  <div class="chart-hold/algo-2" style="display: {{mva_display}};">
-    <h2 class="chart-hold/algo-2" style="text-align: center;">Algorithm vs. Holding</h2>
-    <div id="chart-hold/algo-2" style="height: 50%;display: {{mva_display}}"></div>
-  </div>
+    <!-- algo vs. holding graph (2 lines) -->
+    <div class="chart-hold/algo-2" style="display: {{mva_display}};">
+      <h2 class="chart-hold/algo-2" style="text-align: center;">Algorithm vs. Holding</h2>
+      <div id="chart-hold/algo-2" style="height: 50%;display: {{mva_display}}"></div>
+    </div>
 
-  <!-- algo vs. holding graph (3 lines) -->
-  <div class="chart-hold/algo-3" style="display: {{pairs_display}};">
-    <h2 class="chart-hold/algo-3" style="text-align: center;">Pairs Trading: Algorithm vs. Holding</h2>
-    <div id="chart-hold/algo-3" style="height: 65%;display: {{pairs_display}}"></div>
+    <!-- algo vs. holding graph (3 lines) -->
+    <div class="chart-hold/algo-3" style="display: {{pairs_display}};">
+      <h2 class="chart-hold/algo-3" style="text-align: center;">Pairs Trading: Algorithm vs. Holding</h2>
+      <div id="chart-hold/algo-3" style="height: 65%;display: {{pairs_display}}"></div>
+    </div>
   </div>
-
 
   <script>
       //-------------------------------------------------
