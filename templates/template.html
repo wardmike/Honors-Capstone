@@ -1,86 +1,105 @@
 <html>
 <head>
 	<title>Capstone</title>
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
 	<link rel="stylesheet" type="text/css" href="{{ static_url("main.css") }}">
 	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
-	<h1>Honors Capstone</h1>
-	<h3>Mike Ward</h3>
-  <!-- full form -->
-	<form method="post">
-    <!-- section shared by all algorithms -->
-    <h2 class="center">Step One: Select Parameters for All Algorithms</h2>
-    <div class="all">
-      <label for="mva_days">MVA</label>
-      <input type="text" value="{{ mva_days }}" name="mva_days"/>
-        days
-      <br/>
-      <label for="cash">Starting Cash</label>
-      <input type="text" value="{{ cash }}" name="cash"/>
-      <br/>
-      <input type="radio" name="currency" id="btc" value="BTC" {{ btc_checked }}>
-      <label for="btc">Bitcoin</label>
-      <br>
-      <input type="radio" name="currency" id="eth" value="ETH" {{ eth_checked }}>
-      <label for="eth">Ethereum</label>
-      <br>
-      <input type="radio" name="currency" id="ltc" value="LTC" {{ ltc_checked }}>
-      <label for="ltc">Litecoin</label>
-      <br>
-      <input type="radio" name="currency" id="bch" value="BCH" {{ bch_checked }}>
-      <label for="ltc">Bitcoin Cash</label>
-      <br>
-      <input type="radio" name="currency" id="xrp" value="XRP" {{ xrp_checked }}>
-      <label for="ltc">Ripple</label>
-    </div>
-
-    <h2 class="center">Step Two: Select Invididual Parameters and Run Algorithm</h2>
-    <!-- section for simple moving average crossover -->
-    <div class="mva-simple">
-      <h2 class="center">Simple Moving Average Crossover</h2>
-        <input type="submit" class="simple-mva_button" name="run_mva" value="Run MVA"/>
-    </div>
-
-    <!-- section for exponential moving average crossover -->
-    <div class="mva-exponential">
-      <h2 class="center">Expoential Moving Average Crossover</h2>
-      <p class="center">Not implemented yet</p>
-    </div>
-
-    <!-- section for mean reversion -->
-    <div class="mean-reversion">
-      <h2 class="center">Mean Reversion</h2>
-      <p class="center">Not implemented yet</p>
-    </div>
-
-    <!-- section for pairs trading -->
-    <div class="pairs-trading">
-      <h2 class="center">Pairs Trading</h2>
-      <input type="submit" class="pairs-button" name="run_pairs" value="Run Pairs"/>
-      <div class="pairs-radio">
-        <input type="radio" name="currency2" id="btc" value="BTC" {{ btc2_checked }}>
-        <label for="btc">Bitcoin</label>
-        <br>
-        <input type="radio" name="currency2" id="eth" value="ETH" {{ eth2_checked }}>
-        <label for="eth">Ethereum</label>
-        <br>
-        <input type="radio" name="currency2" id="ltc" value="LTC" {{ ltc2_checked }}>
-        <label for="ltc">Litecoin</label>
-        <br>
-        <input type="radio" name="currency2" id="bch" value="BCH" {{ bch2_checked }}>
-        <label for="ltc">Bitcoin Cash</label>
-        <br>
-        <input type="radio" name="currency2" id="xrp" value="XRP" {{ xrp2_checked }}>
-        <label for="ltc">Ripple</label>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-sm-12 intro">
+        <img class="portrait" src="{{ static_url("portrait.png") }}">
+        <h3 class="name">Mike Ward</h3>
+        <div class="project-info">
+          <h3 class="project-info">Departmental Honors Capstone</h3>
+          <h3 class="project-info">Computer Science</h3>
+          <h3 class="project-info">Utah State University</h3>
+        </div>
       </div>
-    </div>
+      <div class="col-md-8 col-sm-12 main">
+        <!-- full form -->
+        <form method="post">
+        <!-- section shared by all algorithms -->
+        <div class="step-one">
+          <h2 class="center">Step One: Select Parameters for All Algorithms</h2>
+          <div class="all">
+            <label for="mva_days">MVA</label>
+            <input type="text" value="{{ mva_days }}" name="mva_days"/>
+            days
+            <br/>
+            <label for="cash">Starting Cash</label>
+            <input type="text" value="{{ cash }}" name="cash"/>
+            <br/>
+            <input type="radio" name="currency" id="btc" value="BTC" {{ btc_checked }}>
+            <label for="btc">Bitcoin</label>
+            <br>
+            <input type="radio" name="currency" id="eth" value="ETH" {{ eth_checked }}>
+            <label for="eth">Ethereum</label>
+            <br>
+            <input type="radio" name="currency" id="ltc" value="LTC" {{ ltc_checked }}>
+            <label for="ltc">Litecoin</label>
+            <br>
+            <input type="radio" name="currency" id="bch" value="BCH" {{ bch_checked }}>
+            <label for="ltc">Bitcoin Cash</label>
+            <br>
+            <input type="radio" name="currency" id="xrp" value="XRP" {{ xrp_checked }}>
+            <label for="ltc">Ripple</label>
+          </div>
+        </div>
+        <h2 class="center">Step Two: Select Invididual Parameters and Run Algorithm</h2>
+        <!-- section for simple moving average crossover -->
+        <div class="mva-simple">
+        <h2 class="center">Simple Moving Average Crossover</h2>
+        <input type="submit" class="simple-mva_button" name="run_mva" value="Run MVA"/>
+        </div>
 
-  </form>
+        <!-- section for exponential moving average crossover -->
+        <div class="mva-exponential">
+          <h2 class="center">Expoential Moving Average Crossover</h2>
+          <input type="submit" class="mean-reversion_button" name="run_mean-reversion" value="Run Mean Reversion"/>
+          <p class="center">Not implemented yet</p>
+        </div>
+
+        <!-- section for mean reversion -->
+        <div class="mean-reversion">
+          <h2 class="center">Mean Reversion</h2>
+          <label for="offset">Offset</label>
+          <input type="text" value="{{ offset_percent }}" name="offset"/>
+          %
+          <br/>
+          <input type="submit" class="mean-reversion_button" name="run_mean-reversion" value="Run Mean Reversion"/>
+        </div>
+
+        <!-- section for pairs trading -->
+        <div class="pairs-trading">
+          <h2 class="center">Pairs Trading</h2>
+          <input type="submit" class="pairs-button" name="run_pairs" value="Run Pairs"/>
+          <div class="pairs-radio">
+            <input type="radio" name="currency2" id="btc" value="BTC" {{ btc2_checked }}>
+            <label for="btc">Bitcoin</label>
+            <br>
+            <input type="radio" name="currency2" id="eth" value="ETH" {{ eth2_checked }}>
+            <label for="eth">Ethereum</label>
+            <br>
+            <input type="radio" name="currency2" id="ltc" value="LTC" {{ ltc2_checked }}>
+            <label for="ltc">Litecoin</label>
+            <br>
+            <input type="radio" name="currency2" id="bch" value="BCH" {{ bch2_checked }}>
+            <label for="ltc">Bitcoin Cash</label>
+            <br>
+            <input type="radio" name="currency2" id="xrp" value="XRP" {{ xrp2_checked }}>
+            <label for="ltc">Ripple</label>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
 	<p>{{ text }}</p>
 
   <br>
-  <div class="graphs">
+  <div id="graphs" class="graphs">
     <h2 class="center" style="display: {{mva_display}};">Step Three: View Results</h2>
     <h2 class="center" style="display: {{pairs_display}};">Step Three: View Results</h2>
     <!-- mva graph -->
@@ -89,16 +108,22 @@
        <div id="chart-mva" style="height: 50%;"></div>
     </div>
 
+    <!-- mean reversion graph (3 lines) -->
+    <div class="chart-mr" style="width:100%;display: {{mr_display}};">
+      <h2 class="chart-mr style="text-align: center;">Price and Moving Average</h2>
+      <div id="chart-mr" style="width:100%;display: {{mr_display}}"></div>
+    </div>
+
     <!-- algo vs. holding graph (2 lines) -->
-    <div class="chart-hold/algo-2" style="display: {{mva_display}};">
+    <div class="chart-hold/algo-2" style="width:100%;display: {{hold_two_display}};">
       <h2 class="chart-hold/algo-2" style="text-align: center;">Algorithm vs. Holding</h2>
-      <div id="chart-hold/algo-2" style="height: 50%;display: {{mva_display}}"></div>
+      <div id="chart-hold/algo-2" style="width:100%;display: {{hold_two_display}};"></div>
     </div>
 
     <!-- algo vs. holding graph (3 lines) -->
-    <div class="chart-hold/algo-3" style="display: {{pairs_display}};">
+    <div class="chart-hold/algo-3" style="width:100%;display: {{pairs_display}};">
       <h2 class="chart-hold/algo-3" style="text-align: center;">Pairs Trading: Algorithm vs. Holding</h2>
-      <div id="chart-hold/algo-3" style="height: 65%;display: {{pairs_display}}"></div>
+      <div id="chart-hold/algo-3" style="width:100%;display: {{pairs_display}}"></div>
     </div>
   </div>
 
@@ -132,6 +157,52 @@
         }
       };
       Plotly.newPlot('chart-mva', data); //plot the graph
+
+      //-------------------------------------------------
+      // chart-mr: graphs price and moving average
+      // with bounds for mean reversion
+      //-------------------------------------------------
+
+      // line for the price of the currency
+      var price_line = {
+        x: {{ price_data_x }},
+        y: {{ price_data_y }},
+        type: 'scatter',
+        name: 'price'
+      };
+      // line for the moving average
+      var mva_line = {
+        x: {{ mva_data_x }},
+        y: {{ mva_data_y }},
+        type: 'scatter',
+        name: 'moving average'
+      };
+      // upper line for the moving average
+      var upper_line = {
+        x: {{ mva_data_x }},
+        y: {{ upper_data_y }},
+        type: 'scatter',
+        name: 'upper bound'
+      };
+      // lower line for the moving average
+      var lower_line = {
+        x: {{ mva_data_x }},
+        y: {{ lower_data_y }},
+        type: 'scatter',
+        name: 'lower bound'
+      };
+      // data for the mva graph
+      var data = [price_line, mva_line, upper_line, lower_line];
+      var layout = {
+      xaxis: {
+        range: [0, 5]
+      },
+      yaxis: {
+        range: [0, 20]
+        }
+      };
+      Plotly.newPlot('chart-mr', data); //plot the graph
+
       //-------------------------------------------------
       // chart-hold/algo-2: graphs price for holding
       // and value of the algorithm over time
@@ -141,7 +212,7 @@
         x: {{ price_data_x }},
         y: {{ hold_higher_data_y }},
         type: 'scatter',
-        name: 'Bitcoin'
+        name: 'holding'
       };
 
       // line for the holdings of the algorithm
@@ -173,14 +244,15 @@
         x: {{ price_data_x }},
         y: {{ hold_lower_data_y }},
         type: 'scatter',
-        name: 'Ethereum'
+        name: 'holding'
       };
+
       // line for the holdings of the algorithm
       var algo_line = {
         x: {{ price_data_x }},
         y: {{ algo_data_y }},
         type: 'scatter',
-        name: 'Algorithm'
+        name: 'algorithm'
       };
       // data for the hold/hold/algo graph
       var data = [hold_higher_line, hold_lower_line, algo_line];
@@ -193,5 +265,51 @@
         }
       };
       Plotly.newPlot('chart-hold/algo-3', data); //plot the graph
+
+      /* code that might resize the graphs 
+      (function() {
+        var d3 = Plotly.d3;
+        var gd3 = d3.select("div[id='graphs']");
+        var gd = gd3.node();
+
+        Plotly.plot(gd, [{
+          type: 'bar',
+          x: [1, 2, 3, 4],
+          y: [5, 10, 2, 8],
+          marker: {
+            color: '#C8A2C8',
+            line: {
+              width: 2.5
+            }
+          }
+        }], {
+          title: 'Auto-Resize',
+          font: {
+            size: 16
+          }
+        });
+
+      window.onresize = function() {
+        Plotly.Plots.resize(gd);
+        var window_height = window.innerHeight;
+        var content_div_height = document.getElementById('graphs').offsetHeight;
+        // workaround for bug in Plotly: when flexbox container gets smaller, graph does not shrink
+        if (content_div_height > (window_height - 40)) {
+          var svg_container = document.getElementById('content').getElementsByClassName('plot-container')[0].getElementsByClassName('svg-container')[0];
+          svg_container.style.height = (window_height - 40) + 'px';
+          Plotly.Plots.resize(gd);
+        }
+      };
+  })();
+    }
+  };*/
       </script>
-</html>
+</!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+
+</body>
+</html>>

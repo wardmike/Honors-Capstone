@@ -15,14 +15,51 @@ h3 {
 	text-align: center;
 }
 
+/* introduction section with picture and name */
+div.intro {
+	float: left;
+	width: 20%;
+	border: solid;
+}
+
+/* picture of Michael Ward */
+img.portrait {
+	width: 50%;
+	height: auto;
+	margin-left: 25%;
+	margin-top: 10%;
+}
+
+h3.name {
+	width: 90%;
+	margin-left: 5%;
+	text-align: center; 
+}
+
+div.project-info {
+	font-size: 10pt;
+	margin-bottom: 10%;
+}
+
+h3.project-info {
+	text-align: left;
+	margin-left: 5%;
+}
+
+form {
+	width: 70%;
+	float: right;
+}
+
+
 /* section for options only used for simple MVA */
 div.mva-simple {
 	border: solid;
 	float: left;
-	width: 30%;
+	width: 24%;
 	margin-left: 20%;
 	height: 25%;
-	min-height: 220px
+	min-height: 220px;
 }
 
 /* section for options only used for exponential MVA */
@@ -38,14 +75,15 @@ div.mean-reversion {
 	border: solid;
 	float: left;
 	width: 24%;
-	display: none;
+	height: 25%;
+	min-height: 220px;
 }
 
 /* section for options only used for pairs trading */
 div.pairs-trading {
 	border: solid;
 	float: left;
-	width: 30%;
+	width: 24%;
 	height: 25%;
 	min-height: 220px;
 }
@@ -63,6 +101,9 @@ div.all {
 	text-align: center;
 }
 div.graphs {
+	width: 100%;
+	text-align: center;
+	margin-top: 10%;
 	clear: both;
 }
 
