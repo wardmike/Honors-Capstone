@@ -5,7 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ static_url("main.css") }}">
 	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
-<body>
+<body onload="status_check()">
   <div class="container">
     <div class="row">
       <div class="col-md-4 col-sm-12 intro">
@@ -71,7 +71,7 @@
         <div class="mean-reversion">
           <h2 class="center">Mean Reversion</h2>
           <label for="offset">Offset</label>
-          <input type="text" value="{{ offset_percent }}" name="offset"/>
+          <input type="text" value="{{ offset }}" name="offset"/>
           %
           <br/>
           <input type="submit" class="mean-reversion_button" name="run_mean-reversion" value="Run Mean Reversion"/>
@@ -134,6 +134,12 @@
   </div>
 
   <script>
+
+      function status_check() {
+        if ("{{ alert }}" != "") {
+          alert("{{ alert }}");
+        }
+      }
       //-------------------------------------------------
       // chart-mva: graphs price and moving average
       //-------------------------------------------------

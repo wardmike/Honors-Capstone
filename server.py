@@ -13,126 +13,190 @@ import ExponentialMovingAverageCrossoverTrader as exponential_mva
 import PairsTrader as pairs_trader
 import MeanReversionTrader as mean_reversion
 
+def is_float(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
 
+def is_int(s):
+    try:
+        int(s)
+        return True
+    except ValueError:
+        return False
 
 
 class MainHandler(tornado.web.RequestHandler):
-    simple_checked = ""
+    ### values for form ###
+    alert = ""
+    mva_5_min_input = 500
+    offset = ""
+    pairs_mva = ""
+    mva_display = "none"
+    mr_display = "none"
+    pairs_display = "none"
+    hold_two_display = "none"
+    cash = ""
+    text = ""
+    simple_checked = "checked"
     exponential_checked = ""
-    def get(self):
-    	self.render("template.html",
-            mva_days="",
-            offset_percent="",
-            pairs_mva="",
-            mva_display="none",
-            mr_display="none",
-            pairs_display="none",
-            hold_two_display="none",
-            cash="",
-            text="",
+    btc_checked = "checked"
+    eth_checked = ""
+    ltc_checked = ""
+    bch_checked = ""
+    xrp_checked = ""
+    btc2_checked = ""
+    eth2_checked = "checked"
+    ltc2_checked = ""
+    bch2_checked = ""
+    xrp2_checked = ""
+    price_data_x = []
+    price_data_y = []
+    mva_data_x = []
+    mva_data_y = []
+    upper_data_y = []
+    lower_data_y = []
+    algo_data_y = []
+    hold_higher_data_y = []
+    hold_lower_data_y = []
+    ### supporting values ###
+    debug = False
+    currency = "BTC"
+    filename = "prices/5-minute/bitcoin.txt"
+    currency2 = "ETH"
+    filename2 = "prices/5-minute/ethereum.txt"
+
+    def update_currency(self):
+        if (self.currency == "BTC"):
+            self.btc_checked = "checked"
+            self.filename = "prices/5-minute/bitcoin.txt"
+        elif (self.currency == "ETH"):
+            self.eth_checked = "checked"
+            self.filename = "prices/5-minute/ethereum.txt"
+        elif (self.currency == "LTC"):
+            self.ltc_checked = "checked"
+            self.filename = "prices/5-minute/litecoin.txt"
+        elif (self.currency == "BCH"):
+            self.bch_checked = "checked"
+            self.filename = "prices/5-minute/bitcoin-cash.txt"
+        elif (self.currency == "XRP"):
+            self.xrp_checked = "checked"
+            self.filename = "prices/5-minute/ripple.txt"
+
+    def update_currency2(self):
+        if (self.currency2 == "BTC"):
+            self.btc2_checked = "checked"
+            self.filename2 = "prices/5-minute/bitcoin.txt"
+        elif (self.currency2 == "ETH"):
+            self.eth2_checked = "checked"
+            self.filename2 = "prices/5-minute/ethereum.txt"
+        elif (self.currency2 == "LTC"):
+            self.ltc2_checked = "checked"
+            self.filename2 = "prices/5-minute/litecoin.txt"
+        elif (self.currency2 == "BCH"):
+            self.bch2_checked = "checked"
+            self.filename2 = "prices/5-minute/bitcoin-cash.txt"
+        elif (self.currency2 == "XRP"):
+            self.xrp2_checked = "checked"
+            self.filename2 = "prices/5-minute/ripple.txt"
+
+
+    def render_page(self):
+        self.render("template.html",
+            alert=self.alert,
+            mva_days=round(float(self.mva_5_min_input) / float(288), 1),
+            offset=self.offset,
+            pairs_mva=self.pairs_mva,
+            mva_display=self.mva_display,
+            mr_display=self.mr_display,
+            pairs_display=self.pairs_display,
+            hold_two_display=self.hold_two_display,
+            cash=self.cash,
+            text=self.text,
             simple_checked=self.simple_checked,
             exponential_checked=self.exponential_checked,
-            btc_checked="checked",
-            eth_checked="",
-            ltc_checked="",
-            bch_checked="",
-            xrp_checked="",
-            btc2_checked="",
-            eth2_checked="checked",
-            ltc2_checked="",
-            bch2_checked="",
-            xrp2_checked="",
-            price_data_x=[],
-            price_data_y=[],
-            mva_data_x=[],
-            mva_data_y=[],
-            upper_data_y=[],
-            lower_data_y=[],
-            algo_data_y=[],
-            hold_higher_data_y=[],
-            hold_lower_data_y=[]
-            )
+            btc_checked=self.btc_checked,
+            eth_checked=self.eth_checked,
+            ltc_checked=self.ltc_checked,
+            bch_checked=self.bch_checked,
+            xrp_checked=self.xrp_checked,
+            btc2_checked=self.btc2_checked,
+            eth2_checked=self.eth2_checked,
+            ltc2_checked=self.ltc2_checked,
+            bch2_checked=self.bch2_checked,
+            xrp2_checked=self.xrp2_checked,
+            price_data_x=self.price_data_x,
+            price_data_y=self.price_data_y,
+            mva_data_x=self.mva_data_x,
+            mva_data_y=self.mva_data_y,
+            upper_data_y=self.upper_data_y,
+            lower_data_y=self.lower_data_y,
+            algo_data_y=self.algo_data_y,
+            hold_higher_data_y=self.hold_higher_data_y,
+            hold_lower_data_y=self.hold_lower_data_y
+        )
 
-    def run_mva(self, mva_type, currency, currency2, mva_5_min_input, offset, debug, cash_input, filename):
+    def get(self):
+    	self.render_page()
+
+    def run_mva(self):
+        ## check if offset has been entered
+        if self.get_argument('mva-type', None) == None:
+            self.alert = "Error: please select simple or exponential moving average."
+            self.render_page()
+            return
+        mva_type = self.get_argument('mva-type')
         ### get results from Simple Moving Average Crossover Trader ###
         trader = ""
         if (mva_type == 'simple_mva'):
-            trader = simple_mva.SimpleMovingAverageCrossoverTrader(currency, mva_5_min_input, debug, cash_input, filename)
+            self.simple_checked = "checked"
+            self.exponential_checked = ""
+            trader = simple_mva.SimpleMovingAverageCrossoverTrader(self.currency, self.mva_5_min_input, self.debug, self.cash, self.filename)
         else:
-            trader = exponential_mva.ExponentialMovingAverageCrossoverTrader(currency, mva_5_min_input, debug, cash_input, filename)
+            self.simple_checked = ""
+            self.exponential_checked = "checked"
+            trader = exponential_mva.ExponentialMovingAverageCrossoverTrader(self.currency, self.mva_5_min_input, self.debug, self.cash, self.filename)
         trader.trade()
         #results = trader.results()
         price_line = trader.get_price_line()
         mva_line = trader.get_mva_line()
         algo_line = trader.get_algo_line()
         hold_line = trader.get_hold_line()
-        ### handle setting correct checkbox ###
-        btc_checked = ""
-        eth_checked = ""
-        ltc_checked = ""
-        bch_checked = ""
-        xrp_checked = ""
-        btc2_checked = ""
-        eth2_checked = ""
-        ltc2_checked = ""
-        bch2_checked = ""
-        xrp2_checked = ""
-        if (currency == "BTC"):
-            btc_checked = "checked"
-        elif (currency == "ETH"):
-            eth_checked = "checked"
-        elif (currency == "LTC"):
-            ltc_checked = "checked"
-        elif (currency == "BCH"):
-            bch_checked = "checked"
-        elif (currency == "XRP"):
-            xrp_checked = "checked"
-        if (currency2 == "BTC"):
-            btc2_checked = "checked"
-        elif (currency2 == "ETH"):
-            eth2_checked = "checked"
-        elif (currency2 == "LTC"):
-            ltc2_checked = "checked"
-        elif (currency2 == "BCH"):
-            bch2_checked = "checked"
-        elif (currency2 == "XRP"):
-            xrp2_checked = "checked"
-        self.render("template.html",
-            mva_days=round(float(mva_5_min_input) / float(288), 1),
-            offset_percent=offset,
-            pairs_mva="",
-            mva_display="block",
-            mr_display="none",
-            pairs_display="none",
-            hold_two_display="block",
-            cash=cash_input,
-            text="", #results are inaccurate
-            simple_checked=self.simple_checked,
-            exponential_checked=self.exponential_checked,
-            btc_checked=btc_checked,
-            eth_checked=eth_checked,
-            ltc_checked=ltc_checked,
-            bch_checked=bch_checked,
-            xrp_checked=xrp_checked,
-            btc2_checked=btc2_checked,
-            eth2_checked=eth2_checked,
-            ltc2_checked=ltc2_checked,
-            bch2_checked=bch2_checked,
-            xrp2_checked=xrp2_checked,
-            price_data_x=list(range(0, len(price_line))),
-            price_data_y=price_line,
-            upper_data_y=[],
-            lower_data_y=[],
-            mva_data_x=list(range(mva_5_min_input, len(mva_line) + mva_5_min_input)),
-            mva_data_y=mva_line,
-            algo_data_y=algo_line,
-            hold_higher_data_y=hold_line,
-            hold_lower_data_y=[]
-        )
+        
+        ### update values
+        self.pairs_mva = ""
+        self.mva_display = "block"
+        self.mr_display = "none"
+        self.pairs_display = "none"
+        self.hold_two_display = "block"
+        self.price_data_x = list(range(0, len(price_line)))
+        self.price_data_y = price_line
+        self.upper_data_y=[]
+        self.lower_data_y=[]
+        self.mva_data_x=list(range(self.mva_5_min_input, len(mva_line) + self.mva_5_min_input))
+        self.mva_data_y=mva_line
+        self.algo_data_y=algo_line
+        self.hold_higher_data_y=hold_line
+        self.hold_lower_data_y=[]
+        ### render the page
+        self.alert = ""
+        self.render_page()
 
-    def run_mean_reversion(self, currency, currency2, mva_5_min_input, offset, debug, cash_input, filename):
+    def run_mean_reversion(self):
+        ### check if offset has been entered
+        if self.get_argument('offset', None) == None:
+            self.alert = "Error: please enter a proper offset."
+            self.render_page()
+            return
+        self.offset = self.get_argument('offset')
+        if not is_float(self.offset):
+            self.alert = "Error: please enter a proper offset."
+            self.render_page()
+            return
         ### get results from Simple Moving Average Crossover Trader ###
-        trader = mean_reversion.MeanReversionTrader(currency, mva_5_min_input, offset, debug, cash_input, filename)
+        trader = mean_reversion.MeanReversionTrader(self.currency, self.mva_5_min_input, self.offset, self.debug, self.cash, self.filename)
         trader.trade()
         #results = trader.results()
         line_prices = trader.get_line_price()
@@ -142,186 +206,95 @@ class MainHandler(tornado.web.RequestHandler):
         line_algo = trader.get_line_algo()
         line_hold = trader.get_line_hold()
         ### handle setting correct checkbox ###
-        btc_checked = ""
-        eth_checked = ""
-        ltc_checked = ""
-        bch_checked = ""
-        xrp_checked = ""
-        btc2_checked = ""
-        eth2_checked = ""
-        ltc2_checked = ""
-        bch2_checked = ""
-        xrp2_checked = ""
-        if (currency == "BTC"):
-            btc_checked = "checked"
-        elif (currency == "ETH"):
-            eth_checked = "checked"
-        elif (currency == "LTC"):
-            ltc_checked = "checked"
-        elif (currency == "BCH"):
-            bch_checked = "checked"
-        elif (currency == "XRP"):
-            xrp_checked = "checked"
-        if (currency2 == "BTC"):
-            btc2_checked = "checked"
-        elif (currency2 == "ETH"):
-            eth2_checked = "checked"
-        elif (currency2 == "LTC"):
-            ltc2_checked = "checked"
-        elif (currency2 == "BCH"):
-            bch2_checked = "checked"
-        elif (currency2 == "XRP"):
-            xrp2_checked = "checked"
-        self.render("template.html",
-            mva_days=round(float(mva_5_min_input) / float(288), 1),
-            offset_percent=offset,
-            pairs_mva="",
-            mva_display="none",
-            mr_display="block",
-            pairs_display="none",
-            hold_two_display="block",
-            cash=cash_input,
-            text="", #results are inaccurate
-            simple_checked=self.simple_checked,
-            exponential_checked=self.exponential_checked,
-            btc_checked=btc_checked,
-            eth_checked=eth_checked,
-            ltc_checked=ltc_checked,
-            bch_checked=bch_checked,
-            xrp_checked=xrp_checked,
-            btc2_checked=btc2_checked,
-            eth2_checked=eth2_checked,
-            ltc2_checked=ltc2_checked,
-            bch2_checked=bch2_checked,
-            xrp2_checked=xrp2_checked,
-            price_data_x=list(range(0, len(line_prices))),
-            price_data_y=line_prices,
-            mva_data_x=list(range(mva_5_min_input, len(line_avg) + mva_5_min_input)),
-            mva_data_y=line_avg,
-            upper_data_y=line_upper,
-            lower_data_y=line_lower,
-            algo_data_y=line_algo,
-            hold_higher_data_y=line_hold,
-            hold_lower_data_y=[]
-        )
+        self.update_currency()
+        self.pairs_mva=""
+        self.mva_display="none"
+        self.mr_display="block"
+        self.pairs_display="none"
+        self.hold_two_display="block"
+        self.price_data_x=list(range(0, len(line_prices)))
+        self.price_data_y=line_prices
+        self.mva_data_x=list(range(self.mva_5_min_input, len(line_avg) + self.mva_5_min_input))
+        self.mva_data_y=line_avg
+        self.upper_data_y=line_upper
+        self.lower_data_y=line_lower
+        self.algo_data_y=line_algo
+        self.hold_higher_data_y=line_hold
+        self.hold_lower_data_y=[]
+        ### render the page
+        self.alert = ""
+        self.render_page()
 
-    def run_pairs(self, currency, currency2, mva_5_min_input, offset, debug, cash_input, filename1, filename2):
+    def run_pairs(self):
+        ### check if currency2 has been entered
+        if self.get_argument('currency2', None) == None:
+            self.alert = "Error: please select second currency."
+            self.render_page()
+            return
+        self.currency2 = self.get_argument('currency2')
+        self.update_currency2()
         ### get results from Simple Moving Average Crossover Trader ###
-        trader = pairs_trader.PairsTrader(mva_5_min_input, debug, cash_input, filename1, filename2)
+        trader = pairs_trader.PairsTrader(self.mva_5_min_input, self.debug, self.cash, self.filename, self.filename2)
         trader.trade()
         price_line_higher = trader.get_price_line_higher()
         price_line_lower = trader.get_price_line_lower()
         algo_line = trader.get_algo_line()
         hold_line_higher = trader.get_hold_line_higher()
         hold_line_lower = trader.get_hold_line_lower()
-        ### handle setting correct checkbox ###
-        btc_checked = ""
-        eth_checked = ""
-        ltc_checked = ""
-        bch_checked = ""
-        xrp_checked = ""
-        btc2_checked = ""
-        eth2_checked = ""
-        ltc2_checked = ""
-        bch2_checked = ""
-        xrp2_checked = ""
-        if (currency == "BTC"):
-            btc_checked = "checked"
-        elif (currency == "ETH"):
-            eth_checked = "checked"
-        elif (currency == "LTC"):
-            ltc_checked = "checked"
-        elif (currency == "BCH"):
-            bch_checked = "checked"
-        elif (currency == "XRP"):
-            xrp_checked = "checked"
-        if (currency2 == "BTC"):
-            btc2_checked = "checked"
-        elif (currency2 == "ETH"):
-            eth2_checked = "checked"
-        elif (currency2 == "LTC"):
-            ltc2_checked = "checked"
-        elif (currency2 == "BCH"):
-            bch2_checked = "checked"
-        elif (currency2 == "XRP"):
-            xrp2_checked = "checked"
-        self.render("template.html",
-            mva_days=round(float(mva_5_min_input) / float(288), 1),
-            pairs_mva=offset,
-            mva_display="none",
-            mr_display="none",
-            pairs_display="block",
-            hold_two_display="none",
-            cash=cash_input,
-            text="",
-            simple_checked=self.simple_checked,
-            exponential_checked=self.exponential_checked,
-            btc_checked=btc_checked,
-            eth_checked=eth_checked,
-            ltc_checked=ltc_checked,
-            bch_checked=bch_checked,
-            xrp_checked=xrp_checked,
-            btc2_checked=btc2_checked,
-            eth2_checked=eth2_checked,
-            ltc2_checked=ltc2_checked,
-            bch2_checked=bch2_checked,
-            xrp2_checked=xrp2_checked,
-            price_data_x=list(range(0, len(price_line_higher))),
-            price_data_y=price_line_higher,
-            mva_data_x=[],
-            mva_data_y=[],
-            upper_data_y=[],
-            lower_data_y=[],
-            algo_data_y=algo_line,
-            hold_higher_data_y=hold_line_higher,
-            hold_lower_data_y=hold_line_lower
-        )
+        #self.pairs_mva=offset
+        self.mva_display="none"
+        self.mr_display="none"
+        self.pairs_display="block"
+        self.hold_two_display="none"
+        self.price_data_x=list(range(0, len(price_line_higher)))
+        self.price_data_y=price_line_higher
+        self.mva_data_x=[]
+        self.mva_data_y=[]
+        self.upper_data_y=[]
+        self.lower_data_y=[]
+        self.algo_data_y=algo_line
+        self.hold_higher_data_y=hold_line_higher
+        self.hold_lower_data_y=hold_line_lower
+        ### render the page
+        self.alert = ""
+        self.render_page()
 
     def post(self):
         ### get values from form ###
-        cash_input = int(self.get_argument('cash'))
-        currency = self.get_argument('currency')
-        currency2 = self.get_argument('currency2')
-        offset = self.get_argument('offset')
-        mva_type = self.get_argument('mva-type')
-        mva_5_min_input = int(float(self.get_argument('mva_days')) * 288)
+        if self.get_argument('cash', None) == None:
+            self.alert = "Error: please enter a proper value for starting cash."
+            self.render_page()
+            return
+        cash = self.get_argument('cash')
+        if not is_int(cash):
+            self.alert = "Error: please enter a proper value for starting cash."
+            self.render_page()
+            return
+        self.cash = int(cash)
+        if self.get_argument('currency', None) == None:
+            self.alert = "Error: please select a currency."
+            self.render_page()
+            return
+        self.currency = self.get_argument('currency')
+        if self.get_argument('mva_days', None) == None:
+            self.alert = "Error: please enter a valid moving average length."
+            self.render_page()
+            return
+        mva_days = self.get_argument('mva_days')
+        if not is_float(mva_days):
+            self.alert = "Error: please enter a valid moving average length."
+            self.render_page()
+            return
+        self.mva_5_min_input = int(float(mva_days) * 288)
         debug = False
-        if mva_type == 'simple_mva':
-            self.simple_checked = "checked"
-            self.exponential_checked = ""
-        elif mva_type == 'exponential_mva':
-            self.simple_checked = ""
-            self.exponential_checked = "checked"
-        ### find correct filename ###
-        filename = ""
-        if (currency == "BTC"):
-            filename = "prices/5-minute/bitcoin.txt"
-        elif (currency == "ETH"):
-            filename = "prices/5-minute/ethereum.txt"
-        elif (currency == "LTC"):
-            filename = "prices/5-minute/litecoin.txt"
-        elif (currency == "BCH"):
-            filename = "prices/5-minute/bitcoin-cash.txt"
-        elif (currency == "XRP"):
-            filename = "prices/5-minute/ripple.txt"
-        if self.get_argument("run_mva", None) != None: 
-            self.run_mva(mva_type, currency, currency2, mva_5_min_input, offset, debug, cash_input, filename)
+        self.update_currency()
+        if self.get_argument("run_mva", None) != None:
+            self.run_mva()
         elif self.get_argument("run_mean-reversion", None) != None:
-            self.run_mean_reversion(currency, currency2, mva_5_min_input, offset, debug, cash_input, filename)
+            self.run_mean_reversion()
         elif self.get_argument("run_pairs", None) != None:
-            filename2 = ""
-            if (currency2 == "BTC"):
-                filename2 = "prices/5-minute/bitcoin.txt"
-            elif (currency2 == "ETH"):
-                filename2 = "prices/5-minute/ethereum.txt"
-            elif (currency2 == "LTC"):
-                filename2 = "prices/5-minute/litecoin.txt"
-            elif (currency2 == "BCH"):
-                filename2 = "prices/5-minute/bitcoin-cash.txt"
-            elif (currency2 == "XRP"):
-                filename2 = "prices/5-minute/ripple.txt"
-            self.run_pairs(currency, currency2, mva_5_min_input, offset, debug, cash_input, filename, filename2)
-    
+            self.run_pairs()
+
 
 class Server(tornado.web.Application):
     def __init__(self):
