@@ -50,7 +50,13 @@
         <h2 class="center">Step Two: Select Invididual Parameters and Run Algorithm</h2>
         <!-- section for simple moving average crossover -->
         <div class="mva-simple">
-        <h2 class="center">Simple Moving Average Crossover</h2>
+        <h2 class="center">Moving Average Crossover</h2>
+          <input type="radio" name="mva-type" id="simple-mva" value="simple_mva" {{ simple_checked }}>
+          <label for="simple-mva">Simple</label>
+          <br>
+          <input type="radio" name="mva-type" id="exponential-mva" value="exponential_mva" {{ exponential_checked }}>
+          <label for="exponential-mva">Exponential</label>
+          <br>
         <input type="submit" class="simple-mva_button" name="run_mva" value="Run MVA"/>
         </div>
 

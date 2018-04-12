@@ -9,13 +9,16 @@ sys.path.insert(0, os.path.normpath('Pairs Trading'))
 sys.path.insert(0, os.path.normpath('Mean Reversion'))
 
 import SimpleMovingAverageCrossoverTrader as simple_mva
-
+import ExponentialMovingAverageCrossoverTrader as exponential_mva
 import PairsTrader as pairs_trader
-
 import MeanReversionTrader as mean_reversion
 
 
+
+
 class MainHandler(tornado.web.RequestHandler):
+    simple_checked = ""
+    exponential_checked = ""
     def get(self):
     	self.render("template.html",
             mva_days="",
@@ -27,6 +30,8 @@ class MainHandler(tornado.web.RequestHandler):
             hold_two_display="none",
             cash="",
             text="",
+            simple_checked=self.simple_checked,
+            exponential_checked=self.exponential_checked,
             btc_checked="checked",
             eth_checked="",
             ltc_checked="",
@@ -48,9 +53,13 @@ class MainHandler(tornado.web.RequestHandler):
             hold_lower_data_y=[]
             )
 
-    def run_mva(self, currency, currency2, mva_5_min_input, offset, debug, cash_input, filename):
+    def run_mva(self, mva_type, currency, currency2, mva_5_min_input, offset, debug, cash_input, filename):
         ### get results from Simple Moving Average Crossover Trader ###
-        trader = simple_mva.SimpleMovingAverageCrossoverTrader(currency, mva_5_min_input, debug, cash_input, filename)
+        trader = ""
+        if (mva_type == 'simple_mva'):
+            trader = simple_mva.SimpleMovingAverageCrossoverTrader(currency, mva_5_min_input, debug, cash_input, filename)
+        else:
+            trader = exponential_mva.ExponentialMovingAverageCrossoverTrader(currency, mva_5_min_input, debug, cash_input, filename)
         trader.trade()
         #results = trader.results()
         price_line = trader.get_price_line()
@@ -98,6 +107,8 @@ class MainHandler(tornado.web.RequestHandler):
             hold_two_display="block",
             cash=cash_input,
             text="", #results are inaccurate
+            simple_checked=self.simple_checked,
+            exponential_checked=self.exponential_checked,
             btc_checked=btc_checked,
             eth_checked=eth_checked,
             ltc_checked=ltc_checked,
@@ -171,6 +182,8 @@ class MainHandler(tornado.web.RequestHandler):
             hold_two_display="block",
             cash=cash_input,
             text="", #results are inaccurate
+            simple_checked=self.simple_checked,
+            exponential_checked=self.exponential_checked,
             btc_checked=btc_checked,
             eth_checked=eth_checked,
             ltc_checked=ltc_checked,
@@ -241,6 +254,8 @@ class MainHandler(tornado.web.RequestHandler):
             hold_two_display="none",
             cash=cash_input,
             text="",
+            simple_checked=self.simple_checked,
+            exponential_checked=self.exponential_checked,
             btc_checked=btc_checked,
             eth_checked=eth_checked,
             ltc_checked=ltc_checked,
@@ -268,8 +283,15 @@ class MainHandler(tornado.web.RequestHandler):
         currency = self.get_argument('currency')
         currency2 = self.get_argument('currency2')
         offset = self.get_argument('offset')
+        mva_type = self.get_argument('mva-type')
         mva_5_min_input = int(float(self.get_argument('mva_days')) * 288)
-        debug = True
+        debug = False
+        if mva_type == 'simple_mva':
+            self.simple_checked = "checked"
+            self.exponential_checked = ""
+        elif mva_type == 'exponential_mva':
+            self.simple_checked = ""
+            self.exponential_checked = "checked"
         ### find correct filename ###
         filename = ""
         if (currency == "BTC"):
@@ -283,7 +305,7 @@ class MainHandler(tornado.web.RequestHandler):
         elif (currency == "XRP"):
             filename = "prices/5-minute/ripple.txt"
         if self.get_argument("run_mva", None) != None: 
-            self.run_mva(currency, currency2, mva_5_min_input, offset, debug, cash_input, filename)
+            self.run_mva(mva_type, currency, currency2, mva_5_min_input, offset, debug, cash_input, filename)
         elif self.get_argument("run_mean-reversion", None) != None:
             self.run_mean_reversion(currency, currency2, mva_5_min_input, offset, debug, cash_input, filename)
         elif self.get_argument("run_pairs", None) != None:
